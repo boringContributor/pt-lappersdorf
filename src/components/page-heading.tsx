@@ -1,4 +1,4 @@
-import { Container, Stack, Heading, Text, Box, Flex, Image, Button } from "@chakra-ui/react";
+import { Container, Stack, Heading, Text } from "@chakra-ui/react";
 import { FC } from "react";
 
 interface PageHeadingProps {
@@ -52,5 +52,3 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
         </Container>
     )
 };
-
-

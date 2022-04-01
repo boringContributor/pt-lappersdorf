@@ -7,6 +7,8 @@ import { PageHeading } from '../components/page-heading'
 
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
+const backgroundURL = 'https://ucarecdn.com/c255ca4a-8769-4f01-b2a2-0ac4dd40da6a/-/progressive/yes/-/format/auto/-/resize/2000x/'
+
 const Team: NextPage = () => {
     const { pathname = '', asPath } = useRouter();
 
@@ -18,7 +20,7 @@ const Team: NextPage = () => {
             </Head>
 
             <main>
-                <PageHeader title="test" backgroundURL="https://ucarecdn.com/121bb7ec-5e05-4e31-82f5-07293a92831a/-/progressive/yes/-/format/auto/-/resize/2000x/" />
+                <PageHeader backgroundURL={backgroundURL} />
                 <PageHeading title="Unser" underlinedTitle='Team' />
 
                 <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >

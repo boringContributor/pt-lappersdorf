@@ -939,6 +939,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-gallery-carousel@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@types/react-gallery-carousel/-/react-gallery-carousel-0.2.2.tgz#98be8ba5f2f4c7e7b846a7dc6a6e58488844eed5"
+  integrity sha512-BuFbJ4Ufip2Odgjvi/ESLTSpMpmmcf2eF/vTb3Qr2We2zROZLzx4/KZM7jLEg40cb7sUy+yszAuTIHBEuAz04g==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@17.0.43", "@types/react@^17.0.15":
   version "17.0.43"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.43.tgz#4adc142887dd4a2601ce730bc56c3436fdb07a55"
@@ -2392,6 +2399,11 @@ react-focus-lock@2.5.2:
     react-clientside-effect "^1.2.5"
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
+
+react-gallery-carousel@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/react-gallery-carousel/-/react-gallery-carousel-0.2.9.tgz#6f18e9a0c21811095ca1011bdd2ec9778a7a2afa"
+  integrity sha512-UQ2WPyGWC72DtzbHJfQ91gQ2h7RIehd1q/aNnDP4F7iFjqUGUho8mojCWAsz7xLqGCVK9W+QDkqDMtoklLzxJA==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"

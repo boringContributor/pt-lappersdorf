@@ -15,7 +15,7 @@ interface ItemProps {
 }
 export const LeistungAccordion = (items: ItemProps[]) => {
     return <Accordion defaultIndex={[0]} allowMultiple>
-        {Object.values(items).map(item => <Item {...item} />)}
+        {Object.values(items).map(item => <Item key={item.title} {...item} />)}
     </Accordion>
 };
 

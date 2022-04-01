@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { LeistungAccordion } from '../components/leistung-accordion';
+import { PageHeader } from '../components/page-header';
 import { PageHeading } from "../components/page-heading";
 
 const description = 'In unserer Praxis für Physiotherapie und Krankengymnastik bieten wir Ihnen eine Vielzahl an unterschiedlichen Leistungen an.'
@@ -51,9 +52,12 @@ const leistungen = [
     }
 ]
 
+const backgroundURL = 'https://ucarecdn.com/4f8b2abb-ec0f-4cbe-a93d-62f1ac1effcb/-/progressive/yes/-/format/auto/-/resize/2000x/';
+
 const Leistungen = () => {
     return (
         <Box>
+            <PageHeader backgroundURL={backgroundURL} />
             <PageHeading title="Unsere" underlinedTitle='Leistungen' description={description} />
             <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
                 <LeistungAccordion {...leistungen} />
