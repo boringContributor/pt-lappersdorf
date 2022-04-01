@@ -3,8 +3,8 @@ import { FC } from "react";
 
 interface PageHeadingProps {
     title: string;
-    description: string;
 
+    description?: string;
     underlinedTitle?: string;
 
 }
@@ -44,9 +44,9 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
                         }
 
                     </Heading>
-                    <Text as='p' textAlign='justify'>
+                    {description && <Text as='p' textAlign='justify'>
                         {description}
-                    </Text>
+                    </Text>}
                 </Stack>
             </Stack>
         </Container>

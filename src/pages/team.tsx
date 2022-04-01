@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { TeamCard } from '../components/team-card'
 import { PageHeader } from '../components/page-header'
+import { PageHeading } from '../components/page-heading'
+
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
 const Team: NextPage = () => {
@@ -17,6 +19,7 @@ const Team: NextPage = () => {
 
             <main>
                 <PageHeader title="test" backgroundURL="https://ucarecdn.com/121bb7ec-5e05-4e31-82f5-07293a92831a/-/progressive/yes/-/format/auto/-/resize/2000x/" />
+                <PageHeading title="Unser" underlinedTitle='Team' />
 
                 <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
                     <SimpleGrid columns={[1, null, 4]} spacing={2}>
