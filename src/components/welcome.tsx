@@ -10,6 +10,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { PageHeading } from './page-heading';
+import NextLink from 'next/link'
 
 export const Welcome = () => {
     return (
@@ -23,17 +24,21 @@ export const Welcome = () => {
                     <PageHeading title='Herzlich Willkommen,' underlinedTitle='beim Physioteam in Lappersdorf' description='Ihre Gesundheit - Unsere Motivation. Erkrankungen, Unfälle oder einseitige Belastungen führen oft zu erheblichen Einschränkungen der Lebensqualität. Mit einem breiten Behandlungsspektrum von kassenzugelassenen Therapien und auch privaten Leistungen, begleitet Sie unser hoch qualifiziertes und motiviertes Team gerne auf Ihrem Weg zur Gesundheit. Viele Informationen über uns und unsere Angebote finden Sie hier auf unserer Website. Kontaktieren Sie uns und vereinbaren Ihren persönlichen Termin.' />
                     <Stack
                         spacing={{ base: 4, sm: 6 }}
+                        display="flex"
+                        justifyContent='center'
                         direction={{ base: 'column', sm: 'row' }}>
-                        <Button
-                            rounded={'full'}
-                            size={'lg'}
-                            fontWeight={'normal'}
-                            px={6}
-                            colorScheme={'red'}
-                            bg={'var(--primary)'}
-                            _hover={{ bg: 'red.500' }}>
-                            Aktuelles
-                        </Button>
+                        <NextLink href='/aktuelles'>
+                            <Button
+                                rounded={'full'}
+                                size={'lg'}
+                                fontWeight={'normal'}
+                                px={6}
+                                colorScheme={'red'}
+                                bg={'var(--primary)'}
+                                _hover={{ bg: 'red.500' }}>
+                                Aktuelles
+                            </Button>
+                        </NextLink>
                     </Stack>
                 </Stack>
                 <Flex
@@ -71,7 +76,7 @@ export const Welcome = () => {
                     </Box>
                 </Flex>
             </Stack>
-        </Container>
+        </Container >
     );
 }
 
