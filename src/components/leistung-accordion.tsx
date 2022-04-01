@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react';
 
-interface ItemProps {
+export interface ItemProps {
     title: string;
 
     description?: string;

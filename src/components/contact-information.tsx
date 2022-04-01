@@ -19,7 +19,7 @@ interface InformationCardProps {
     href?: string;
 }
 
-interface ContactInformationProps {
+export interface ContactInformationProps {
     email: string;
     address: string;
     fax: string;

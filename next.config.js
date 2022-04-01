@@ -4,6 +4,13 @@ const nextConfig = {
   images: {
     domains: ['ucarecdn.com'],
   },
+  i18n: {
+    locales: ['de'],
+    defaultLocale: 'de'
+  },
+  env: {
+    graphql: 'https://api-eu-central-1.graphcms.com/v2/cl1gmn8vw4kir01xiala193ff/master'
+  }
 }
 
 module.exports = nextConfig
