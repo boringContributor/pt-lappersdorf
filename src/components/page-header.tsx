@@ -34,7 +34,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ title, backgroundURL }) => {
                         color={'white'}
                         fontWeight={700}
                         lineHeight={1.2}
-                        fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
+                        fontSize={'3xl'}>
                         {title}
                     </Text>
                 </Stack>}

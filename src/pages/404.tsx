@@ -20,7 +20,7 @@ const NotFound = () => {
             clearTimeout(timeout)
             clearInterval(timer);
         }
-    }, []);
+    }, [router]);
 
 
     return (

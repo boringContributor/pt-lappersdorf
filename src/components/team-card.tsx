@@ -67,6 +67,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                             width={282}
                             objectFit={'cover'}
                             src={photoURL}
+                            alt={`Team Foto von ${name}`}
                         />}
                     {isFlipped && qualifications && qualifications.length > 0 &&
                         <List spacing={3} marginTop={10}>

@@ -27,7 +27,7 @@ export const Welcome = () => {
                         display="flex"
                         justifyContent='center'
                         direction={{ base: 'column', sm: 'row' }}>
-                        <NextLink href='/aktuelles'>
+                        <NextLink href='/aktuelles' passHref>
                             <Button
                                 rounded={'full'}
                                 size={'lg'}
