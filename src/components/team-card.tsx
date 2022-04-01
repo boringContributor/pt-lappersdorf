@@ -11,7 +11,7 @@ import {
     Divider,
     List,
     ListItem,
-    ListIcon,
+    ListIcon
 } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
@@ -59,14 +59,15 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                             filter: 'blur(20px)',
                         },
                     }}>
-                    {!isFlipped && <Image
-                        visibility={isFlipped ? 'hidden' : 'visible'}
-                        rounded={'lg'}
-                        height={230}
-                        width={282}
-                        objectFit={'cover'}
-                        src={photoURL}
-                    />}
+                    {!isFlipped &&
+                        <Image
+                            visibility={isFlipped ? 'hidden' : 'visible'}
+                            rounded={'lg'}
+                            height={230}
+                            width={282}
+                            objectFit={'cover'}
+                            src={photoURL}
+                        />}
                     {isFlipped && qualifications && qualifications.length > 0 &&
                         <List spacing={3} marginTop={10}>
                             {qualifications.map(quali =>
