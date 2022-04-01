@@ -20,7 +20,7 @@ export const Welcome = () => {
                 py={{ base: 5, md: 7 }}
                 direction={{ base: 'column', md: 'row' }}>
                 <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-                    <PageHeading title='Herzlich Willkommen!' underlinedTitle='beim Physioteam in Lappersdorf' description='Ihre Gesundheit - Unsere Motivation. Erkrankungen, Unfälle oder einseitige Belastungen führen oft zu erheblichen Einschränkungen der Lebensqualität. Mit einem breiten Behandlungsspektrum von kassenzugelassenen Therapien und auch privaten Leistungen, begleitet Sie unser hoch qualifiziertes und motiviertes Team gerne auf Ihrem Weg zur Gesundheit. Viele Informationen über uns und unsere Angebote finden Sie hier auf unserer Website. Kontaktieren Sie uns und vereinbaren Ihren persönlichen Termin.' />
+                    <PageHeading title='Herzlich Willkommen,' underlinedTitle='beim Physioteam in Lappersdorf' description='Ihre Gesundheit - Unsere Motivation. Erkrankungen, Unfälle oder einseitige Belastungen führen oft zu erheblichen Einschränkungen der Lebensqualität. Mit einem breiten Behandlungsspektrum von kassenzugelassenen Therapien und auch privaten Leistungen, begleitet Sie unser hoch qualifiziertes und motiviertes Team gerne auf Ihrem Weg zur Gesundheit. Viele Informationen über uns und unsere Angebote finden Sie hier auf unserer Website. Kontaktieren Sie uns und vereinbaren Ihren persönlichen Termin.' />
                     <Stack
                         spacing={{ base: 4, sm: 6 }}
                         direction={{ base: 'column', sm: 'row' }}>

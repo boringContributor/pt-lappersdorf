@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { EmailIcon, PhoneIcon, InfoOutlineIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { FC, ReactNode } from 'react';
+import { GoogleMap } from "./google-map";
 
 interface InformationCardProps {
     title: string;
@@ -63,8 +64,8 @@ const InformationCard = ({ title, info, icon, href }: InformationCardProps) => {
 
 export const ContactInformation: FC<ContactInformationProps> = ({ address, email, phone, fax }) => {
     return (
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} mb={10}>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
+        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }} mb={10}>
                 <InformationCard
                     title={'Adresse'}
                     info={address}
@@ -91,6 +92,7 @@ export const ContactInformation: FC<ContactInformationProps> = ({ address, email
                     icon={<InfoOutlineIcon w={10} h={10} color="var(--primary)" />}
                 />
             </SimpleGrid>
+            <GoogleMap />
         </Box>
     );
 }

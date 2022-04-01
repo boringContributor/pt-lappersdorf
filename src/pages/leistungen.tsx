@@ -1,8 +1,14 @@
-import { Welcome } from "../components/welcome";
+import { Box } from '@chakra-ui/react';
+import { PageHeading } from "../components/page-heading";
+
+const description = 'In unserer Praxis für Physiotherapie und Krankengymnastik bieten wir Ihnen eine Vielzahl an unterschiedlichen Leistungen an.'
+
 
 const Leistungen = () => {
     return (
-        <Welcome />
+        <Box>
+            <PageHeading title="Unsere" underlinedTitle='Leistungen' description={description} />
+        </Box>
     )
 };
 

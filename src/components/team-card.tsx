@@ -23,7 +23,7 @@ interface TeamCardProps {
     qualifications: string[];
 }
 export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualifications }) => {
-    const [isFlipped, setIsFlipped] = useState(true);
+    const [isFlipped, setIsFlipped] = useState(false);
 
     return (
         <Center py={12}>
@@ -86,7 +86,16 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                             {position}
                         </Text></>)}
                     <Divider />
-                    <Button colorScheme='cyan' variant='solid' onClick={() => setIsFlipped(!isFlipped)}>
+                    <Button
+                        rounded={'full'}
+                        size={'lg'}
+                        fontWeight={'normal'}
+                        px={6}
+                        colorScheme={'red'}
+                        bg={'var(--primary)'}
+                        _hover={{ bg: 'red.500' }}
+                        onClick={() => setIsFlipped(!isFlipped)}
+                    >
                         {isFlipped ? 'Zurück' : 'Qualifikationen'}
                     </Button>
                 </Stack>

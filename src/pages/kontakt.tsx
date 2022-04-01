@@ -1,4 +1,3 @@
-import { GoogleMap } from "../components/google-map";
 import { ContactInformation } from "../components/contact-information";
 import { Box } from '@chakra-ui/react';
 import { PageHeading } from "../components/page-heading";
@@ -16,7 +15,6 @@ const Contact = () => {
         <Box>
             <PageHeading title="Unsere" underlinedTitle='Öffnungszeiten' description={description} />
             <ContactInformation {...contactDetails} />
-            <GoogleMap />
         </Box>
     )
 };
