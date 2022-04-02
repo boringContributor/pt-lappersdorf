@@ -11,8 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { PageHeading } from './page-heading';
 import NextLink from 'next/link'
+import { FC } from 'react';
 
-export const Welcome = () => {
+export const Welcome: FC = () => {
     return (
         <Container maxW={'7xl'}>
             <Stack

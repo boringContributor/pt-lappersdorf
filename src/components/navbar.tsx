@@ -7,11 +7,12 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 import Logo from '../../public/logo.png';
 import { NavItem } from '../types/nav-item';
 import { NAV_ITEMS } from '../utils/constants';
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
     const { isOpen, onToggle } = useDisclosure();
     const router = useRouter()
 

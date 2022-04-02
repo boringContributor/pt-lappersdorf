@@ -3,7 +3,7 @@ import { ItemProps, LeistungAccordion } from '../components/leistung-accordion';
 import { PageHeader } from '../components/page-header';
 import { PageHeading } from "../components/page-heading";
 import { gql, request } from 'graphql-request';
-import { InferGetStaticPropsType } from 'next';
+import { InferGetStaticPropsType, GetStaticProps } from 'next';
 
 const backgroundURL = 'https://ucarecdn.com/4f8b2abb-ec0f-4cbe-a93d-62f1ac1effcb/-/progressive/yes/-/format/auto/-/resize/2000x/';
 
@@ -13,7 +13,7 @@ interface ServicePage {
         description: string;
     }
 }
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const query = gql`
     query {
         service(where: { slug: "service"}) {
@@ -24,8 +24,15 @@ export const getStaticProps = async () => {
   `;
 
     const data = await request<ServicePage>(process.env.graphql as string, query);
+
+    if (!data.service) {
+        return {
+            notFound: true
+        }
+    }
     return {
-        props: data
+        props: data,
+        revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
     };
 };
 
