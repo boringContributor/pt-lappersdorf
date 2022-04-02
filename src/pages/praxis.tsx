@@ -1,26 +1,20 @@
 import { Box } from "@chakra-ui/layout";
 import { gql, request } from "graphql-request";
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { URL } from "../types/url";
 import { Gallery } from "../components/gallery";
 import { PageHeaderImg } from "../components/page-header-img";
 import { PageHeading } from "../components/page-heading";
 
 const title = 'Unsere Praxis im Herzen von'
 const underlinedTitle = 'Lappersdorf'
-const backgroundURL = 'http://d35oszxnjbmfnc.cloudfront.net/front_3.jpg'
-
-
-const cards = [
-    { src: 'https://ucarecdn.com/88a857c8-d420-417d-a5a8-267993d1de79/', title: 'test', w: 200, h: 20 },
-    { src: 'https://ucarecdn.com/d575c857-3f79-4259-83a9-b890fc6cf7c3/', title: 'test', w: 200, h: 20 },
-    { src: 'https://ucarecdn.com/121bb7ec-5e05-4e31-82f5-07293a92831a/', title: 'test', w: 200, h: 20 },
-    { src: 'https://ucarecdn.com/c13ce0d7-c2c7-428e-a506-9e95fb25a2a8/', title: 'test', w: 200, h: 20 },
-]
 
 type PraxisPage = {
     description: {
         text: string;
     }
+    backgroundURL: URL
+    praxisImage: URL[];
 }
 export const getStaticProps: GetStaticProps = async () => {
     const query = gql`
@@ -28,6 +22,12 @@ export const getStaticProps: GetStaticProps = async () => {
         praxis(where: {slug: "praxis"}) {
             description {
               text
+            }
+            backgroundURL {
+                url
+            }
+            praxisImage {
+                url
             }
           }
       }
@@ -46,13 +46,19 @@ export const getStaticProps: GetStaticProps = async () => {
     };
 };
 
+const transformToGallery = (urls: URL[]): { src: string, title: string, w: number, h: number }[] => {
+    return urls.map(({ url }) => {
+        return { src: url, title: 'Praxis', w: 200, h: 20 }
+    })
+};
+
 const Praxis: NextPage = ({ praxis }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={backgroundURL} />
+            <PageHeaderImg backgroundURL={praxis.backgroundURL.url} />
             <PageHeading title={title} underlinedTitle={underlinedTitle} description={praxis.description.text} />
             <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
-                <Gallery sliderImages={cards} />
+                <Gallery sliderImages={transformToGallery(praxis.praxisImage)} />
             </Box>
         </Box>
     )
