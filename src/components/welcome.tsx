@@ -6,7 +6,11 @@ import {
 import NextLink from 'next/link';
 import { FC } from 'react';
 
-export const Welcome: FC = ({ children }) => {
+interface WelcomeProps {
+    heroImgURL: string;
+}
+
+export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
     return (
         <Container maxW={'7xl'}>
             <Stack
@@ -63,9 +67,7 @@ export const Welcome: FC = ({ children }) => {
                             align={'center'}
                             w={'100%'}
                             h={'100%'}
-                            src={
-                                'https://ucarecdn.com/c255ca4a-8769-4f01-b2a2-0ac4dd40da6a/-/progressive/yes/-/format/auto/-/resize/2000x/'
-                            }
+                            src={heroImgURL}
                         />
                     </Box>
                 </Flex>

@@ -16,7 +16,7 @@ interface PageHeaderImgProps {
 export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL }) => {
     return (
         <Flex
-            w={'full'}
+            backgroundRepeat='no-repeat'
             h={'40vh'}
             backgroundImage={
                 `url(${backgroundURL})`

@@ -1,15 +1,16 @@
 import { Box } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
-import type { GetStaticProps, NextPage, InferGetStaticPropsType } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 import { PageHeaderImg } from '../components/page-header-img';
 import { PageHeading } from '../components/page-heading';
 import { CommonSEO } from '../components/seo';
 import { Welcome } from '../components/welcome';
 import { siteMetadata } from '../data/site-metadata';
 import { PageMeta } from '../types/page-meta';
+import { URL } from '../types/url';
 
 
-type Pagedata = PageMeta & { backgroundURL: { url: string } }
+type Pagedata = PageMeta & { backgroundURL: URL, heroImg: URL }
 
 export const getStaticProps: GetStaticProps = async () => {
   const query = gql`
@@ -18,6 +19,9 @@ export const getStaticProps: GetStaticProps = async () => {
       title
       description
       backgroundURL {
+        url
+      }
+      heroImg {
         url
       }
     }
@@ -37,12 +41,12 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const Home: NextPage = ({ pagedata: { description, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPage = ({ pagedata: { description, backgroundURL: { url }, heroImg: { url: heroImgURL } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Box>
       <CommonSEO title={siteMetadata.title} description={siteMetadata.description} />
       <PageHeaderImg backgroundURL={url} />
-      <Welcome >
+      <Welcome heroImgURL={heroImgURL}>
         <PageHeading title='Herzlich Willkommen,' underlinedTitle='beim Physioteam in Lappersdorf' description={description} />
       </Welcome>
 
