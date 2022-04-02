@@ -70,7 +70,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                     }
                 </Box>
                 <Stack pt={10} align={'center'}>
-                    {!isFlipped && (<><Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
+                    {!isFlipped && (<><Heading fontSize={'xl'} fontFamily={'body'} fontWeight={500}>
                         {name}
                     </Heading>
                         <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
