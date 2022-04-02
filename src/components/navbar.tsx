@@ -17,7 +17,7 @@ export const Navbar: FC = () => {
     const router = useRouter()
 
     return (
-        <Box>
+        <Box sx={{ position: 'sticky', top: '0', zIndex: 2 }}>
             <Flex
                 as='header'
                 bg={useColorModeValue('white', 'gray.800')}

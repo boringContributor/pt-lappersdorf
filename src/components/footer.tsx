@@ -4,25 +4,24 @@ import {
     Divider,
     Link,
     Stack,
-    useColorModeValue,
+    useColorModeValue
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import { FC } from 'react';
 import Logo from '../../public/logo.png';
 
 
 
-export const Footer = () => {
+export const Footer: FC = () => {
     return (
         <Box
             bg={useColorModeValue('gray.50', 'gray.900')}
             color={useColorModeValue('gray.700', 'gray.200')}>
             <Container
-                as={Stack}
+                as={'footer'}
+                role="contentinfo"
                 maxW={'6xl'}
-                py={4}
-                spacing={4}
-                justify={'center'}
-                align={'center'}>
+                py={4}>
 
                 <Image src={Logo} alt='logo' width={200} height={50} />
 

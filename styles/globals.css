@@ -9,7 +9,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-system)
+  font-family: var(--font-system);
 }
 
 a {
