@@ -1,28 +1,18 @@
-import { FC, useState } from 'react';
-import {
-    Box,
-    Center,
-    useColorModeValue,
-    Heading,
-    Text,
-    Stack,
-    Image,
-    Button,
-    Divider,
-    List,
-    ListItem,
-    ListIcon
-} from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import {
+    Box, Button, Center, Divider, Heading, Image, List, ListIcon, ListItem, Stack, Text, useColorModeValue
+} from '@chakra-ui/react';
+import { FC, useState } from 'react';
 
 
-interface TeamCardProps {
+export interface TeamCardProps {
     name: string;
-    photoURL: string;
+    picture: { url: string };
     position: string;
-    qualifications: string[];
+
+    description?: string[];
 }
-export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualifications }) => {
+export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, description }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
@@ -50,7 +40,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                         pos: 'absolute',
                         top: 5,
                         left: 0,
-                        backgroundImage: !isFlipped ? `url(${photoURL})` : undefined,
+                        backgroundImage: !isFlipped ? `url(${picture.url})` : undefined,
                         filter: 'blur(15px)',
                         zIndex: -1,
                     }}
@@ -66,12 +56,12 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                             height={230}
                             width={282}
                             objectFit={'cover'}
-                            src={photoURL}
+                            src={picture.url}
                             alt={`Team Foto von ${name}`}
                         />}
-                    {isFlipped && qualifications && qualifications.length > 0 &&
+                    {isFlipped && description && description.length > 0 &&
                         <List spacing={3} marginTop={10}>
-                            {qualifications.map(quali =>
+                            {description.map(quali =>
                                 <ListItem key={quali}>
                                     <ListIcon as={ChevronRightIcon} color='green.500' />
                                     {quali}
@@ -87,7 +77,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                             {position}
                         </Text></>)}
                     <Divider />
-                    <Button
+                    {description && description.length > 0 && <Button
                         rounded={'full'}
                         size={'lg'}
                         fontWeight={'normal'}
@@ -98,7 +88,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, photoURL, position, qualific
                         onClick={() => setIsFlipped(!isFlipped)}
                     >
                         {isFlipped ? 'Zurück' : 'Qualifikationen'}
-                    </Button>
+                    </Button>}
                 </Stack>
             </Box>
         </Center>

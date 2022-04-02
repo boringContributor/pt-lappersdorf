@@ -4,17 +4,16 @@ import {
     Flex,
     Text,
     VStack,
-    useBreakpointValue,
-    Box
+    useBreakpointValue
 } from '@chakra-ui/react';
 
-interface PageHeaderProps {
+interface PageHeaderImgProps {
     backgroundURL: string;
 
     title?: string;
 }
 
-export const PageHeader: FC<PageHeaderProps> = ({ title, backgroundURL }) => {
+export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL }) => {
     return (
         <Flex
             w={'full'}

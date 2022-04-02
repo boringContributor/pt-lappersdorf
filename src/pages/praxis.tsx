@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/layout";
-import { request, gql } from "graphql-request";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { gql, request } from "graphql-request";
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { Gallery } from "../components/gallery";
-import { PageHeader } from "../components/page-header";
+import { PageHeaderImg } from "../components/page-header-img";
 import { PageHeading } from "../components/page-heading";
 
 const title = 'Unsere Praxis im Herzen von'
@@ -46,10 +46,10 @@ export const getStaticProps: GetStaticProps = async () => {
     };
 };
 
-const Praxis = ({ praxis }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Praxis: NextPage = ({ praxis }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <Box>
-            <PageHeader backgroundURL={backgroundURL} />
+            <PageHeaderImg backgroundURL={backgroundURL} />
             <PageHeading title={title} underlinedTitle={underlinedTitle} description={praxis.description.text} />
             <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
                 <Gallery sliderImages={cards} />

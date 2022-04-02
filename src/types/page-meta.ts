@@ -1,4 +1,8 @@
 export interface PageMeta {
-    titel: string;
+    title: string;
     description: string;
+
+    backgroundURL?: {
+        url?: string;
+    }
 }

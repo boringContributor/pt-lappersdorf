@@ -1,19 +1,12 @@
 import {
-    Container,
-    Stack,
-    Flex,
     Box,
-    Button,
-    Image,
-    Icon,
-    IconProps,
-    useColorModeValue,
+    Button, Container, Flex, Icon,
+    IconProps, Image, Stack, useColorModeValue
 } from '@chakra-ui/react';
-import { PageHeading } from './page-heading';
-import NextLink from 'next/link'
+import NextLink from 'next/link';
 import { FC } from 'react';
 
-export const Welcome: FC = () => {
+export const Welcome: FC = ({ children }) => {
     return (
         <Container maxW={'7xl'}>
             <Stack
@@ -22,7 +15,7 @@ export const Welcome: FC = () => {
                 py={{ base: 5, md: 7 }}
                 direction={{ base: 'column', md: 'row' }}>
                 <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-                    <PageHeading title='Herzlich Willkommen,' underlinedTitle='beim Physioteam in Lappersdorf' description='Ihre Gesundheit - Unsere Motivation. Erkrankungen, Unfälle oder einseitige Belastungen führen oft zu erheblichen Einschränkungen der Lebensqualität. Mit einem breiten Behandlungsspektrum von kassenzugelassenen Therapien und auch privaten Leistungen, begleitet Sie unser hoch qualifiziertes und motiviertes Team gerne auf Ihrem Weg zur Gesundheit. Viele Informationen über uns und unsere Angebote finden Sie hier auf unserer Website. Kontaktieren Sie uns und vereinbaren Ihren persönlichen Termin.' />
+                    {children}
                     <Stack
                         spacing={{ base: 4, sm: 6 }}
                         display="flex"

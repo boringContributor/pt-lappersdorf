@@ -1,9 +1,9 @@
-import { ContactInformation, ContactInformationProps } from "../components/contact-information";
 import { Box } from '@chakra-ui/react';
+import { gql, request } from 'graphql-request';
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { ContactInformation, ContactInformationProps } from "../components/contact-information";
+import { PageHeaderImg } from "../components/page-header-img";
 import { PageHeading } from "../components/page-heading";
-import { PageHeader } from "../components/page-header";
-import { gql, request } from 'graphql-request'
-import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PageMeta } from "../types/page-meta";
 
 type ContactPage = ContactInformationProps & PageMeta
@@ -17,6 +17,9 @@ export const getStaticProps: GetStaticProps = async () => {
           phone
           email
           description
+          backgroundURL {
+              url
+          }
         }
       }
   `;
@@ -35,11 +38,10 @@ export const getStaticProps: GetStaticProps = async () => {
     };
 };
 
-const backgroundURL = 'https://ucarecdn.com/2a4ecaaa-4a5d-4c62-858a-b7be677ee195/-/progressive/yes/-/format/auto/-/resize/2000x/'
-const Contact = ({ contact }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Contact: NextPage = ({ contact }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <Box>
-            <PageHeader backgroundURL={backgroundURL} />
+            <PageHeaderImg backgroundURL={contact.backgroundURL.url} />
             <PageHeading title="Unsere" underlinedTitle='Öffnungszeiten' description={contact.description} />
             <ContactInformation {...contact} />
         </Box>

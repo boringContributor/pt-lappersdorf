@@ -1,10 +1,11 @@
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const timeToRedirect = 5;
 
-const NotFound = () => {
+const NotFound: NextPage = () => {
     const router = useRouter();
     const [timer, setTimer] = useState(timeToRedirect);
 
