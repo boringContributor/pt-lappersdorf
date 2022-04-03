@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 employees {
                     name
                     picture {
-                        url
+                        url(transformation: { document: { output: { format: webp } } })
                     }
                     position
                     description

@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
-    Box, Button, Center, Divider, Heading, Image, List, ListIcon, ListItem, Stack, Text, useColorModeValue
+    Box, Button, Center, Divider, Heading, List, ListIcon, ListItem, Stack, Text, useColorModeValue
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import NextImage from 'next/image'
