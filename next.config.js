@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['ucarecdn.com', 'media.graphassets.com'],
+    minimumCacheTTL: 31536000
   },
   i18n: {
     locales: ['de'],
