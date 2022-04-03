@@ -49,7 +49,7 @@ const Team: NextPage = ({ team }: InferGetStaticPropsType<typeof getStaticProps>
                 <PageHeading title="Unser" underlinedTitle='Team' />
 
                 <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
-                    <SimpleGrid columns={[1, null, 4]} spacing={2}>
+                    <SimpleGrid columns={[1, 2, 4]} spacing={2}>
                         {team.employees.map((employee: TeamCardProps) => <TeamCard key={employee.name} {...employee} />)}
                     </SimpleGrid>
                 </Box>

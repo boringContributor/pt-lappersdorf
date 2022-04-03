@@ -3,7 +3,7 @@ import {
     Box, Button, Center, Divider, Heading, Image, List, ListIcon, ListItem, Stack, Text, useColorModeValue
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
-
+import NextImage from 'next/image'
 
 export interface TeamCardProps {
     name: string;
@@ -50,15 +50,8 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                         },
                     }}>
                     {!isFlipped &&
-                        <Image
-                            visibility={isFlipped ? 'hidden' : 'visible'}
-                            rounded={'lg'}
-                            height={230}
-                            width={282}
-                            objectFit={'cover'}
-                            src={picture.url}
-                            alt={`Team Foto von ${name}`}
-                        />}
+                        <NextImage style={{ borderRadius: '0.5rem' }} sizes="50vw" src={picture.url} layout='fill' objectFit={'cover'} alt={`Team Foto von ${name}`} />
+                    }
                     {isFlipped && description && description.length > 0 &&
                         <List spacing={3} marginTop={10}>
                             {description.map(quali =>
