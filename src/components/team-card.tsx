@@ -20,6 +20,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
             <Box
                 role={'group'}
                 p={6}
+                h={390}
                 maxW={'330px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.800')}

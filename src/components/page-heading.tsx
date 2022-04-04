@@ -11,7 +11,7 @@ interface PageHeadingProps {
 export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlinedTitle }) => {
 
     return (
-        <Container maxW={'7xl'}>
+        <Container maxW={'7xl'} display={'grid'} placeItems={'center'}>
             <Stack
                 align={'center'}
                 spacing={{ base: 8, md: 10 }}
