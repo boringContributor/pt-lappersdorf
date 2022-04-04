@@ -32,7 +32,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                     mt={-12}
                     pos={'relative'}
                     height={'230px'}
-                    boxShadow='lg'
+                    boxShadow={!isFlipped ? 'lg' : undefined}
                     _after={{
                         transition: 'all .3s ease',
                         content: '""',
@@ -41,7 +41,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                         pos: 'absolute',
                         top: 5,
                         left: 0,
-                        filter: 'blur(16px)',
+                        filter: 'blur(15px)',
                         zIndex: -1,
                     }}
                     _groupHover={{
