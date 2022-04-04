@@ -21,7 +21,7 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
                     <Heading
                         lineHeight={1.1}
                         fontWeight={300}
-                        fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
+                        fontSize={{ base: '4xl', sm: '4xl', lg: '6xl' }}>
                         <Text as={'span'} color={'var(--primary)'}>
                             {title}
                         </Text>
