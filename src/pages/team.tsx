@@ -1,7 +1,7 @@
 import { Box, SimpleGrid } from '@chakra-ui/react'
 import { gql, request } from 'graphql-request'
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { PageHeaderImg } from '../components/page-header-img'
+import { BackgroundImageSize, PageHeaderImg } from '../components/page-header-img'
 import { PageHeading } from '../components/page-heading'
 import { CommonSEO } from '../components/seo'
 import { TeamCard, TeamCardProps } from '../components/team-card'
@@ -45,7 +45,7 @@ const Team: NextPage = ({ team }: InferGetStaticPropsType<typeof getStaticProps>
         <>
             <CommonSEO title={siteMetadata.title} description={siteMetadata.description} />
             <main>
-                <PageHeaderImg backgroundURL={team.backgroundURL.url} />
+                <PageHeaderImg backgroundURL={team.backgroundURL.url} size={BackgroundImageSize.BIG} />
                 <PageHeading title="Unser" underlinedTitle='Team' />
 
                 <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >

@@ -11,13 +11,20 @@ interface PageHeaderImgProps {
     backgroundURL: string;
 
     title?: string;
+    size?: BackgroundImageSize
 }
 
-export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL }) => {
+export enum BackgroundImageSize {
+    SMALL = '20vh',
+    MEDIUM = '40vh',
+    BIG = '60vh'
+}
+
+export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL, size = BackgroundImageSize.MEDIUM }) => {
     return (
         <Flex
             backgroundRepeat='no-repeat'
-            h={'40vh'}
+            h={size}
             backgroundImage={
                 `url(${backgroundURL})`
             }
