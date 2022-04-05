@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
             notFound: true
         }
     }
-    console.log(data.currents)
+
     return {
         props: data.currents[0],
         revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
