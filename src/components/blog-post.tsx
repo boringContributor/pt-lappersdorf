@@ -6,6 +6,7 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import { URL } from '../types/url';
 
 export interface BlogPostProps {
     title: string;
@@ -13,11 +14,11 @@ export interface BlogPostProps {
     description: {
         text: string;
     };
-    backgroundURL: string;
+    backgroundURL: URL;
     slug: string;
 }
 
-export const BlogPost: FC<BlogPostProps> = ({ title, date, description: { text }, backgroundURL, slug }) => {
+export const BlogPost: FC<BlogPostProps> = ({ title, date, description: { text }, backgroundURL: { url }, slug }) => {
     const router = useRouter();
 
     return (
@@ -44,7 +45,7 @@ export const BlogPost: FC<BlogPostProps> = ({ title, date, description: { text }
                     mb={6}
                     pos={'relative'}>
                     <Image
-                        src={backgroundURL}
+                        src={url}
                         layout={'fill'}
                         alt={slug}
                     />
