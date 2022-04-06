@@ -3,6 +3,8 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FC } from "react";
+import ReactMarkdown from 'react-markdown';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 
 interface BlogPostDetailProps {
     title: string;
@@ -55,26 +57,25 @@ export const BlogPostDetail: FC<BlogPostDetailProps> = ({ title, date, html, url
                             />
                         }>
                         <VStack spacing={{ base: 4, sm: 6 }}>
-                            <Text
-                                color={useColorModeValue('gray.600', 'gray.400')}
-                                fontSize={'2xl'}
-                                fontWeight={'300'}>
+                            <ReactMarkdown components={{
+                                a: ({ node, ...props }) => <Link color={'var(--primary)'} {...props} />,
+                                p: ({ node, ...props }) => <Text {...props} textAlign={'left'}
+                                    fontSize={'2xl'}
+                                    fontWeight={'300'} />
+                            }}>
                                 {html}
-                            </Text>
+                            </ReactMarkdown>
 
                         </VStack>
-
-
+                        <Center mb={10}>
+                            <NextLink href='/aktuelles' passHref>
+                                <Link fontSize={'2xl'} color={'var(--primary)'}><ChevronLeftIcon />Zurück</Link>
+                            </NextLink>
+                        </Center>
                     </Stack>
-
                 </Stack>
-
             </SimpleGrid>
-            <Center mb={10}>
-                <NextLink href='/aktuelles' passHref>
-                    <Link fontSize={'2xl'} color={'var(--primary)'}>Zurück</Link>
-                </NextLink>
-            </Center>
+
         </Container>
     )
 };

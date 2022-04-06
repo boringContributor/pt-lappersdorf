@@ -26,9 +26,9 @@ export const Footer: FC = () => {
                 <Image src={Logo} alt='logo' width={200} height={50} />
 
                 <Stack direction={'row'} spacing={6}>
-                    <Link href={'#'}>Datenschutz & Impressum</Link>
+                    <Link href={'/impressum'}>Datenschutz & Impressum</Link>
                     <Divider orientation='vertical' />
-                    <Link href={'#'}>Kontakt</Link>
+                    <Link href={'/kontakt'}>Kontakt</Link>
                 </Stack>
             </Container>
         </Box>

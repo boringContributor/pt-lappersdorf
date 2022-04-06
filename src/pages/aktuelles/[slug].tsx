@@ -14,6 +14,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             title
             description{
                 text
+                markdown
             }
             date
             backgroundURL{
@@ -57,10 +58,10 @@ export async function getStaticPaths() {
     }
 }
 
-export const Post: NextPage = ({ blogPost: { title, description: { text }, date, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+export const Post: NextPage = ({ blogPost: { title, description: { text, markdown }, date, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
     return (
-        <BlogPostDetail title={title} html={text} date={date} url={url} />
+        <BlogPostDetail title={title} html={markdown} date={date} url={url} />
     )
 }
 
