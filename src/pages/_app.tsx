@@ -10,6 +10,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Head>
         <meta name="description" content="Physioteam Lappersdorf" />
         <link rel="icon" href="/logo_ico.png" />
+        <script async src="https://cdn.splitbee.io/sb.js"></script>
       </Head>
       <ChakraProvider>
         <Layout>
