@@ -56,7 +56,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                     {isFlipped && description && description.length > 0 &&
                         <List spacing={3} marginTop={10}>
                             {description.map(quali =>
-                                <ListItem key={quali}>
+                                <ListItem key={quali} fontSize={14}>
                                     <ListIcon as={ChevronRightIcon} color='green.500' />
                                     {quali}
                                 </ListItem>)}
