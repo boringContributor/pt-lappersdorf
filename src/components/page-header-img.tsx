@@ -16,7 +16,7 @@ interface PageHeaderImgProps {
 }
 
 export enum BackgroundImageSize {
-    SMALL = '25vh',
+    SMALL = '10vh',
     MEDIUM = '40vh',
     BIG = '60vh'
 }
@@ -27,7 +27,7 @@ export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL, si
     return (
         <Flex
             backgroundRepeat='no-repeat'
-            h={isMobile ? BackgroundImageSize.SMALL : size}
+            height={{ base: '21vh', sm: '20vh', md: '30vh', lg: '60vh' }}
             backgroundImage={
                 `url(${backgroundURL})`
             }
