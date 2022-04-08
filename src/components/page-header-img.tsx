@@ -4,8 +4,7 @@ import {
     Flex,
     Text,
     VStack,
-    useBreakpointValue,
-    useMediaQuery
+    useBreakpointValue
 } from '@chakra-ui/react';
 
 interface PageHeaderImgProps {
@@ -16,18 +15,16 @@ interface PageHeaderImgProps {
 }
 
 export enum BackgroundImageSize {
-    SMALL = '10vh',
-    MEDIUM = '40vh',
+    SMALL = '21vh',
+    MEDIUM = '30vh',
     BIG = '60vh'
 }
 
 export const PageHeaderImg: FC<PageHeaderImgProps> = ({ title, backgroundURL, size = BackgroundImageSize.MEDIUM }) => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)")
-
     return (
         <Flex
             backgroundRepeat='no-repeat'
-            height={{ base: '21vh', sm: '20vh', md: '30vh', lg: '60vh' }}
+            height={{ base: BackgroundImageSize.SMALL, sm: BackgroundImageSize.SMALL, md: size, lg: BackgroundImageSize.BIG }}
             backgroundImage={
                 `url(${backgroundURL})`
             }
