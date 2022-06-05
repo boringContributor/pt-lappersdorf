@@ -35,6 +35,9 @@ export const getStaticProps: GetStaticProps = async () => {
         }
     }
 
+    // sort the blogs by date
+    data.currents[0].blogPosts.sort((a: any, z: any) => new Date(z.date).valueOf() - new Date(a.date).valueOf())
+
     return {
         props: data.currents[0],
         revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
