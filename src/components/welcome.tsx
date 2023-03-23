@@ -56,7 +56,6 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                     />
                     <Box
                         position={'relative'}
-                        height={'300px'}
                         rounded={'2xl'}
                         boxShadow={'2xl'}
                         width={'full'}
@@ -66,7 +65,6 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                             fit={'cover'}
                             align={'center'}
                             w={'100%'}
-                            h={'100%'}
                             src={heroImgURL}
                         />
                     </Box>

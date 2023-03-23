@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Leistungen: NextPage = ({ service: { services, description, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={url} />
+            <PageHeaderImg backgroundURL={url}/>
             <PageHeading title="Unsere" underlinedTitle='Leistungen' description={description} />
             <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
                 <LeistungAccordion {...services} />
