@@ -1,14 +1,7 @@
-import { FC } from 'react';
 import {
-    Stack,
-    Flex,
-    Text,
-    VStack,
-    useBreakpointValue,
-    Image,
-    AspectRatio,
-    Box
+    Image
 } from '@chakra-ui/react';
+import { FC } from 'react';
 
 interface PageHeaderImgProps {
     backgroundURL: string;

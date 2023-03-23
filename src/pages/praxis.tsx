@@ -1,10 +1,11 @@
-import { Box } from "@chakra-ui/layout";
+
 import { gql, request } from "graphql-request";
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { URL } from "../types/url";
 import { Gallery } from "../components/gallery";
 import { PageHeaderImg } from "../components/page-header-img";
 import { PageHeading } from "../components/page-heading";
+import { Box } from "@chakra-ui/react";
 
 const title = 'Unsere Praxis im Herzen von'
 const underlinedTitle = 'Lappersdorf'
