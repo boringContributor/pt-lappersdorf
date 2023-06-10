@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
     return {
         props: data,
-        revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+        // revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
     };
 };
 
