@@ -73,6 +73,7 @@ export const Footer = () => {
         <Stack direction={"row"} spacing={6}>
           <Link href={"/impressum"}>Datenschutz & Impressum</Link>
           <Link href={"/kontakt"}>Kontakt</Link>
+          <Link target='_blank' href={"https://aio-gesundheitsmanagement.de"}>All In One Gesundheitsmanagement</Link>
         </Stack>
       </Container>
 
@@ -91,7 +92,7 @@ export const Footer = () => {
           align={{ base: "center", md: "center" }}
         >
           <Box display={"flex"}>
-            <Text display={"flex"}>© 2022 Made with </Text>
+            <Text display={"flex"}>© {new Date().getFullYear()} Made with </Text>
             <Box
               as={motion.div}
               animation={animation}

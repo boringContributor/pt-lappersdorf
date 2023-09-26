@@ -77,6 +77,7 @@ const DesktopNav = () => {
                         href={navItem.href ?? '#'}
                         fontSize={'medium'}
                         fontWeight={500}
+                        target={navItem.external ? '_blank' : '_self'}
                         _focus={{
                             ...navLinkStyle
                         }}
@@ -104,7 +105,7 @@ const MobileNav = () => {
     );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href, external }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
@@ -144,7 +145,8 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
+                            <Link key={child.label} py={2} href={child.href} target={external ? '_blank' : '_self'}
+                            >
                                 {child.label}
                             </Link>
                         ))}
