@@ -31,32 +31,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         }
     }
     return {
-        props: data,
-        // revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+        props: data
     };
 };
-
-interface BlogSlug {
-    slug: string;
-}
-
-export async function getStaticPaths() {
-    const query = gql`
-    query {
-        blogPosts {
-            slug
-        }
-      }`;
-
-    const data = await request<{ blogPosts: BlogSlug[] }>(process.env.graphql as string, query);
-
-    return {
-        paths: data.blogPosts.map(({ slug }) => ({
-            params: { slug },
-        })),
-        fallback: false,
-    }
-}
 
 export const Post: NextPage = ({ blogPost: { title, description: { markdown }, date, backgroundURL: { url } } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
