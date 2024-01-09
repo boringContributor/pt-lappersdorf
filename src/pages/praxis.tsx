@@ -1,11 +1,11 @@
 
+import { Box } from "@chakra-ui/react";
 import { gql, request } from "graphql-request";
-import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import { URL } from "../types/url";
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import { Gallery } from "../components/gallery";
 import { PageHeaderImg } from "../components/page-header-img";
 import { PageHeading } from "../components/page-heading";
-import { Box } from "@chakra-ui/react";
+import { URL } from "../types/url";
 
 const title = 'Unsere Praxis im Herzen von'
 const underlinedTitle = 'Lappersdorf'
@@ -17,7 +17,7 @@ type PraxisPage = {
     backgroundURL: URL
     praxisImage: URL[];
 }
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const query = gql`
     query {
         praxis(where: {slug: "praxis"}) {
@@ -42,8 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
         }
     }
     return {
-        props: data,
-        revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+        props: data
     };
 };
 
@@ -53,7 +52,7 @@ const transformToGallery = (urls: URL[]): { src: string, title: string, w: numbe
     })
 };
 
-const Praxis: NextPage = ({ praxis }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Praxis: NextPage = ({ praxis }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
             <PageHeaderImg backgroundURL={praxis.backgroundURL.url} />

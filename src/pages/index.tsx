@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { PageHeaderImg } from '../components/page-header-img';
 import { PageHeading } from '../components/page-heading';
 import { CommonSEO } from '../components/seo';
@@ -12,7 +12,7 @@ import { URL } from '../types/url';
 
 type Pagedata = PageMeta & { backgroundURL: URL, heroImg: URL }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const query = gql`
   query {
     pagedata(where: { slug: "start"}) {
@@ -36,12 +36,11 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   }
   return {
-    props: data,
-    revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+    props: data
   };
 };
 
-const Home: NextPage = ({ pagedata: { description, backgroundURL: { url }, heroImg: { url: heroImgURL } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPage = ({ pagedata: { description, backgroundURL: { url }, heroImg: { url: heroImgURL } } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <Box>
       <CommonSEO title={siteMetadata.title} description={siteMetadata.description} />

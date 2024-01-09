@@ -1,8 +1,8 @@
 import { gql, request } from 'graphql-request';
-import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { BlogPostDetail } from '../../components/blog-post-detail';
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     if (!params) {
         return {
             notFound: true
@@ -58,7 +58,7 @@ export async function getStaticPaths() {
     }
 }
 
-export const Post: NextPage = ({ blogPost: { title, description: { text, markdown }, date, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+export const Post: NextPage = ({ blogPost: { title, description: { markdown }, date, backgroundURL: { url } } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     return (
         <BlogPostDetail title={title} html={markdown} date={date} url={url} />

@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
-import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { ItemProps, LeistungAccordion } from '../components/leistung-accordion';
 import { PageHeaderImg } from '../components/page-header-img';
 import { PageHeading } from "../components/page-heading";
@@ -10,7 +10,7 @@ interface ServicePage {
         description: string;
     }
 }
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const query = gql`
     query {
         service(where: { slug: "service"}) {
@@ -31,12 +31,11 @@ export const getStaticProps: GetStaticProps = async () => {
         }
     }
     return {
-        props: data,
-        revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+        props: data
     };
 };
 
-const Leistungen: NextPage = ({ service: { services, description, backgroundURL: { url } } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Leistungen: NextPage = ({ service: { services, description, backgroundURL: { url } } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
             <PageHeaderImg backgroundURL={url}/>

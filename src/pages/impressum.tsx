@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import { gql, request } from "graphql-request";
-import { GetStaticProps, NextPage, InferGetStaticPropsType } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import ReactMarkdown from "react-markdown";
 import { PageHeading } from "../components/page-heading";
 
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const query = gql`
         query {
             impressum(where: { slug: "impressum"}) {
@@ -21,13 +21,12 @@ export const getStaticProps: GetStaticProps = async () => {
         }
     }
     return {
-        props: data,
-        revalidate: 60 * 60 // Enables ISR -> Cache response for 1 hour (60 seconds * 60 minutes)
+        props: data
     };
 };
 
 
-const Impressum: NextPage = ({ impressum: { content } }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Impressum: NextPage = ({ impressum: { content } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
             <PageHeading title='Impressum' />

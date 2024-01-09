@@ -11,7 +11,6 @@ interface WelcomeProps {
 }
 
 export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
-    console.log('Hello there :)')
     return (
         <Container maxW={'7xl'}>
             <Stack
