@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['ucarecdn.com', 'media.graphassets.com', 'graphassets.com'],
+    domains: ['ucarecdn.com', 'media.graphassets.com', 'eu-central-1.graphassets.com'],
     minimumCacheTTL: 31536000
   },
   i18n: {
