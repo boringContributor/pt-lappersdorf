@@ -20,6 +20,9 @@ importers:
       '@emotion/styled':
         specifier: ^11
         version: 11.14.1(@emotion/react@11.14.0(@types/react@17.0.43)(react@18.0.0))(@types/react@17.0.43)(react@18.0.0)
+      '@vercel/analytics':
+        specifier: ^1.6.1
+        version: 1.6.1(next@12.1.4(react-dom@18.0.0(react@18.0.0))(react@18.0.0))(react@18.0.0)
       framer-motion:
         specifier: ^6
         version: 6.5.1(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
@@ -764,6 +767,32 @@ packages:
   '@typescript-eslint/visitor-keys@5.10.1':
     resolution: {integrity: sha512-NjQ0Xinhy9IL979tpoTRuLKxMc0zJC7QVSdeerXs2/QvOy2yRkzX5dRb10X5woNUdJgU8G3nYRDlI33sq1K4YQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@vercel/analytics@1.6.1':
+    resolution: {integrity: sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3142,6 +3171,11 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 5.10.1
       eslint-visitor-keys: 3.4.3
+
+  '@vercel/analytics@1.6.1(next@12.1.4(react-dom@18.0.0(react@18.0.0))(react@18.0.0))(react@18.0.0)':
+    optionalDependencies:
+      next: 12.1.4(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
+      react: 18.0.0
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
