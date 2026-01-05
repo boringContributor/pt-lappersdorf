@@ -44,7 +44,13 @@ export const Navbar: FC = () => {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Box ml={5} mr={5} _hover={{ cursor: 'pointer' }} onClick={() => router.push('/')} >
+                    <Box
+                        ml={5}
+                        mr={5}
+                        transition="all 0.2s ease-in-out"
+                        _hover={{ cursor: 'pointer', transform: 'scale(1.02)' }}
+                        onClick={() => router.push('/')}
+                    >
                         <Image src={Logo} alt='logo' width={200} height={50} />
                     </Box>
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -61,6 +67,8 @@ export const Navbar: FC = () => {
 }
 
 const DesktopNav = () => {
+    const router = useRouter();
+
     const navLinkStyle = {
         textDecoration: 'underline',
         textUnderlineOffset: '10px',
@@ -70,24 +78,41 @@ const DesktopNav = () => {
 
     return (
         <Stack direction={'row'} spacing={4}>
-            {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label} display='grid' placeContent='center'>
-                    <Link
-                        p={2}
-                        href={navItem.href ?? '#'}
-                        fontSize={'medium'}
-                        fontWeight={500}
-                        target={navItem.external ? '_blank' : '_self'}
-                        _focus={{
-                            ...navLinkStyle
-                        }}
-                        _hover={{
-                            ...navLinkStyle,
-                        }}>
-                        {navItem.label}
-                    </Link>
-                </Box>
-            ))}
+            {NAV_ITEMS.map((navItem) => {
+                const isActive = router.pathname === navItem.href;
+
+                return (
+                    <Box key={navItem.label} display='grid' placeContent='center'>
+                        <Link
+                            p={2}
+                            href={navItem.href ?? '#'}
+                            fontSize={'medium'}
+                            fontWeight={500}
+                            target={navItem.external ? '_blank' : '_self'}
+                            position="relative"
+                            transition="all 0.2s ease-in-out"
+                            color={isActive ? 'var(--primary)' : 'inherit'}
+                            _before={isActive ? {
+                                content: '""',
+                                position: 'absolute',
+                                bottom: '-2px',
+                                left: '8px',
+                                right: '8px',
+                                height: '2px',
+                                bg: 'var(--primary)',
+                            } : undefined}
+                            _focus={{
+                                ...navLinkStyle
+                            }}
+                            _hover={{
+                                ...navLinkStyle,
+                                transform: 'translateY(-2px)',
+                            }}>
+                            {navItem.label}
+                        </Link>
+                    </Box>
+                );
+            })}
         </Stack>
     );
 };
@@ -107,6 +132,8 @@ const MobileNav = () => {
 
 const MobileNavItem = ({ label, children, href, external }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
+    const router = useRouter();
+    const isActive = router.pathname === href;
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
@@ -116,12 +143,17 @@ const MobileNavItem = ({ label, children, href, external }: NavItem) => {
                 href={href ?? '#'}
                 justify={'space-between'}
                 align={'center'}
+                bg={isActive ? 'var(--primary-light)' : 'transparent'}
+                px={3}
+                borderRadius="md"
+                transition="all 0.2s ease-in-out"
                 _hover={{
                     textDecoration: 'none',
+                    bg: 'var(--primary-light)',
                 }}>
                 <Text
                     fontWeight={600}
-                    color={useColorModeValue('gray.600', 'gray.200')}>
+                    color={isActive ? 'var(--primary)' : useColorModeValue('gray.600', 'gray.200')}>
                     {label}
                 </Text>
                 {children && (

@@ -29,11 +29,21 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                             <Button
                                 rounded={'full'}
                                 size={'lg'}
-                                fontWeight={'normal'}
-                                px={6}
+                                fontWeight={'medium'}
+                                px={8}
                                 colorScheme={'red'}
                                 bg={'var(--primary)'}
-                                _hover={{ bg: 'red.500' }}>
+                                transition="all 0.3s ease-in-out"
+                                boxShadow="md"
+                                _hover={{
+                                    bg: 'var(--primary-hover)',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: 'lg'
+                                }}
+                                _active={{
+                                    transform: 'translateY(0)',
+                                    boxShadow: 'md'
+                                }}>
                                 Aktuelles
                             </Button>
                         </NextLink>
@@ -59,7 +69,12 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                         rounded={'2xl'}
                         boxShadow={'2xl'}
                         width={'full'}
-                        overflow={'hidden'}>
+                        overflow={'hidden'}
+                        transition="all 0.3s ease-in-out"
+                        _hover={{
+                            transform: 'scale(1.02)',
+                            boxShadow: '2xl',
+                        }}>
                         <Image
                             alt={'Hero Image'}
                             fit={'cover'}

@@ -8,7 +8,8 @@ import {
     useColorModeValue,
     Link
 } from '@chakra-ui/react';
-import { EmailIcon, PhoneIcon, InfoOutlineIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { EmailIcon, PhoneIcon, InfoOutlineIcon } from '@chakra-ui/icons'
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FC, ReactNode } from 'react';
 import { GoogleMap } from "./google-map";
 
@@ -29,31 +30,41 @@ export interface ContactInformationProps {
 const InformationCard = ({ title, info, icon, href }: InformationCardProps) => {
     return (
         <Box
+            transition="all 0.3s ease-in-out"
             _hover={{
                 borderColor: 'var(--primary)',
-                color: 'var(--primary)'
+                color: 'var(--primary)',
+                transform: 'translateY(-4px)',
             }}>
             <Stat
                 px={{ base: 2, md: 4 }}
                 py={'5'}
-                shadow={'xl'}
+                shadow={'lg'}
                 border={'1px solid'}
-                rounded={'lg'}>
+                borderColor={useColorModeValue('gray.200', 'gray.700')}
+                rounded={'lg'}
+                transition="inherit">
                 <Flex justifyContent={'space-between'}>
                     <Box pl={{ base: 2, md: 4 }} >
-                        <StatLabel fontWeight={'medium'} isTruncated>
+                        <StatLabel fontWeight={'semibold'} isTruncated color="gray.500">
                             {title}
                         </StatLabel>
-                        <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
-                            <Link _hover={{ textDecoration: 'none' }} href={href} isExternal>
+                        <StatNumber fontSize={{ base: 'lg', md: 'xl' }} fontWeight={'medium'} mt={2}>
+                            <Link
+                                _hover={{ textDecoration: 'none', color: 'var(--primary)' }}
+                                href={href}
+                                isExternal
+                                transition="color 0.2s ease-in-out"
+                            >
                                 {info}
                             </Link>
                         </StatNumber>
                     </Box>
                     <Box
                         my={'auto'}
-                        color={useColorModeValue('gray.800', 'gray.200')}
-                        alignContent={'center'}>
+                        color={useColorModeValue('var(--primary)', 'gray.200')}
+                        alignContent={'center'}
+                        transition="inherit">
                         {icon}
                     </Box>
                 </Flex>
@@ -72,7 +83,7 @@ export const ContactInformation: FC<ContactInformationProps> = ({ address, email
                     href={`https://www.google.com.au/maps/search/${encodeURI(
                         address
                     )}`}
-                    icon={<ChevronDownIcon w={10} h={10} color="var(--primary)" />}
+                    icon={<FaMapMarkerAlt size={32} />}
                 />
                 <InformationCard
                     title={'Email'}

@@ -19,9 +19,9 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
                 direction={{ base: 'column', md: 'row' }}>
                 <Stack flex={1} spacing={{ base: 5, md: 10 }}>
                     <Heading
-                        lineHeight={1.1}
-                        fontWeight={300}
-                        fontSize={{ base: '4xl', sm: '4xl', lg: '6xl' }}>
+                        lineHeight={1.2}
+                        fontWeight={600}
+                        fontSize={{ base: '3xl', sm: '4xl', lg: '5xl' }}>
                         <Text as={'span'} color={'var(--primary)'}>
                             {title}
                         </Text>
@@ -29,10 +29,11 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
                         {underlinedTitle && <Text
                             as={'span'}
                             position={'relative'}
+                            fontWeight={400}
                             _after={{
                                 content: "''",
                                 width: 'full',
-                                height: '10%',
+                                height: '12%',
                                 position: 'absolute',
                                 bottom: 1,
                                 left: 0,
@@ -44,7 +45,12 @@ export const PageHeading: FC<PageHeadingProps> = ({ title, description, underlin
                         }
 
                     </Heading>
-                    {description && <Text as='p' textAlign='justify'>
+                    {description && <Text
+                        as='p'
+                        fontSize={{ base: 'md', md: 'lg' }}
+                        color='gray.600'
+                        lineHeight={1.8}
+                    >
                         {description}
                     </Text>}
                 </Stack>

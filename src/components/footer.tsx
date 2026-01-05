@@ -71,9 +71,40 @@ export const Footer = () => {
       >
         <Image src={Logo} alt="logo" width={200} height={50} />
         <Stack direction={"row"} spacing={6}>
-          <Link href={"/impressum"}>Datenschutz & Impressum</Link>
-          <Link href={"/kontakt"}>Kontakt</Link>
-          <Link target='_blank' href={"https://aio-gesundheitsmanagement.de"}>All In One Gesundheitsmanagement</Link>
+          <Link
+            href={"/impressum"}
+            transition="all 0.2s ease-in-out"
+            _hover={{
+              color: 'var(--primary)',
+              textDecoration: 'underline',
+              textUnderlineOffset: '4px'
+            }}
+          >
+            Datenschutz & Impressum
+          </Link>
+          <Link
+            href={"/kontakt"}
+            transition="all 0.2s ease-in-out"
+            _hover={{
+              color: 'var(--primary)',
+              textDecoration: 'underline',
+              textUnderlineOffset: '4px'
+            }}
+          >
+            Kontakt
+          </Link>
+          <Link
+            target='_blank'
+            href={"https://aio-gesundheitsmanagement.de"}
+            transition="all 0.2s ease-in-out"
+            _hover={{
+              color: 'var(--primary)',
+              textDecoration: 'underline',
+              textUnderlineOffset: '4px'
+            }}
+          >
+            All In One Gesundheitsmanagement
+          </Link>
         </Stack>
       </Container>
 
@@ -103,7 +134,15 @@ export const Footer = () => {
               <FaHeart color="red" />
             </Box>
             by&nbsp;
-            <Link href={"https://twitter.com/boingCntributor"} target="_blank">
+            <Link
+              href={"https://twitter.com/boingCntributor"}
+              target="_blank"
+              transition="all 0.2s ease-in-out"
+              _hover={{
+                color: 'var(--primary)',
+                textDecoration: 'underline',
+              }}
+            >
               Sebastian
             </Link>
           </Box>

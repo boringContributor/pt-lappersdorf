@@ -1,15 +1,23 @@
 :root {
   --primary: rgb(134, 37, 37);
+  --primary-hover: rgb(164, 47, 47);
+  --primary-light: rgba(134, 37, 37, 0.1);
   --font-primary: 'Open Sans', sans-serif;
   --font-system: system-ui; /* postcssPresetEnv */
 }
 
+
+html {
+  scroll-behavior: smooth;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: var(--font-system);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -19,4 +27,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Improve focus visibility for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }

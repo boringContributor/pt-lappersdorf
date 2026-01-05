@@ -27,7 +27,12 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                 boxShadow={'2xl'}
                 rounded={'lg'}
                 pos={'relative'}
-                zIndex={1}>
+                zIndex={1}
+                transition="all 0.3s ease-in-out"
+                _hover={{
+                    transform: 'translateY(-8px)',
+                    boxShadow: '2xl',
+                }}>
                 <Box
                     rounded={'lg'}
                     mt={-12}
@@ -74,11 +79,21 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                     {description && description.length > 0 && <Button
                         rounded={'full'}
                         size={'lg'}
-                        fontWeight={'normal'}
+                        fontWeight={'medium'}
                         px={6}
                         colorScheme={'red'}
                         bg={'var(--primary)'}
-                        _hover={{ bg: 'red.500' }}
+                        transition="all 0.3s ease-in-out"
+                        boxShadow="md"
+                        _hover={{
+                            bg: 'var(--primary-hover)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: 'lg'
+                        }}
+                        _active={{
+                            transform: 'translateY(0)',
+                            boxShadow: 'md'
+                        }}
                         onClick={() => setIsFlipped(!isFlipped)}
                     >
                         {isFlipped ? 'Zurück' : 'Qualifikationen'}
