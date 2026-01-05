@@ -1,5 +1,4 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { Analytics } from "@vercel/analytics/next"
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import '../../styles/globals.css'
@@ -15,7 +14,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ChakraProvider>
         <Layout>
           <Component {...pageProps} />
-          <Analytics />
         </Layout>
       </ChakraProvider>
     </>

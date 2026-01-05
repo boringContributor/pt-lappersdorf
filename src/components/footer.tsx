@@ -7,8 +7,8 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
-  keyframes,
 } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { FaInstagram, FaFacebook, FaHeart } from "react-icons/fa";

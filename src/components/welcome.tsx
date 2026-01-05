@@ -4,10 +4,11 @@ import {
     IconProps, Image, Stack, useColorModeValue
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface WelcomeProps {
     heroImgURL: string;
+    children?: ReactNode;
 }
 
 export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
@@ -25,28 +26,28 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                         display="flex"
                         justifyContent='center'
                         direction={{ base: 'column', sm: 'row' }}>
-                        <NextLink href='/aktuelles' passHref>
-                            <Button
-                                rounded={'full'}
-                                size={'lg'}
-                                fontWeight={'medium'}
-                                px={8}
-                                colorScheme={'red'}
-                                bg={'var(--primary)'}
-                                transition="all 0.3s ease-in-out"
-                                boxShadow="md"
-                                _hover={{
-                                    bg: 'var(--primary-hover)',
-                                    transform: 'translateY(-2px)',
-                                    boxShadow: 'lg'
-                                }}
-                                _active={{
-                                    transform: 'translateY(0)',
-                                    boxShadow: 'md'
-                                }}>
-                                Aktuelles
-                            </Button>
-                        </NextLink>
+                        <Button
+                            as={NextLink}
+                            href='/aktuelles'
+                            rounded={'full'}
+                            size={'lg'}
+                            fontWeight={'medium'}
+                            px={8}
+                            colorScheme={'red'}
+                            bg={'var(--primary)'}
+                            transition="all 0.3s ease-in-out"
+                            boxShadow="md"
+                            _hover={{
+                                bg: 'var(--primary-hover)',
+                                transform: 'translateY(-2px)',
+                                boxShadow: 'lg'
+                            }}
+                            _active={{
+                                transform: 'translateY(0)',
+                                boxShadow: 'md'
+                            }}>
+                            Aktuelles
+                        </Button>
                     </Stack>
                 </Stack>
                 <Flex
@@ -54,7 +55,8 @@ export const Welcome: FC<WelcomeProps> = ({ children, heroImgURL }) => {
                     justify={'center'}
                     align={'center'}
                     position={'relative'}
-                    w={'full'}>
+                    w={'full'}
+                    overflow={'hidden'}>
                     <Blob
                         w={'150%'}
                         h={'150%'}

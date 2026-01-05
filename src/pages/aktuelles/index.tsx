@@ -56,9 +56,10 @@ const Aktuelles: NextPage = ({ blogPosts, description, backgroundURL: { url } }:
         <Box>
             <PageHeaderImg backgroundURL={url} />
             <PageHeading title="Aktuelles" description={description} />
-            <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
-                <SimpleGrid minChildWidth='300px' spacing={4}>
-                    {blogPosts.map((post: any) => <BlogPost key={post.title} title={post.title} description={post.description} date={post.date} slug={post.slug} backgroundURL={post.backgroundURL} />)}</SimpleGrid>
+            <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 2, sm: 12, md: 17 }} >
+                <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 8 }}>
+                    {blogPosts.map((post: any) => <BlogPost key={post.slug} title={post.title} description={post.description} date={post.date} slug={post.slug} backgroundURL={post.backgroundURL} />)}
+                </SimpleGrid>
             </Box>
         </Box>
     )

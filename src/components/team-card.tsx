@@ -56,7 +56,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                         },
                     }}>
                     {!isFlipped &&
-                        <NextImage style={{ borderRadius: '0.5rem' }} sizes="50vw" src={picture.url} layout='fill' objectFit={'cover'} alt={`Team Foto von ${name}`} />
+                        <NextImage style={{ borderRadius: '0.5rem', objectFit: 'cover' }} sizes="50vw" src={picture.url} fill alt={`Team Foto von ${name}`} />
                     }
                     {isFlipped && description && description.length > 0 &&
                         <List spacing={3} marginTop={10}>

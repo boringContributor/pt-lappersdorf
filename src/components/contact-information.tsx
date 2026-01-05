@@ -5,6 +5,7 @@ import {
     Stat,
     StatLabel,
     StatNumber,
+    Text,
     useColorModeValue,
     Link
 } from '@chakra-ui/react';
@@ -75,7 +76,7 @@ const InformationCard = ({ title, info, icon, href }: InformationCardProps) => {
 
 export const ContactInformation: FC<ContactInformationProps> = ({ address, email, phone, fax }) => {
     return (
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
+        <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 2, sm: 12, md: 17 }} >
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }} mb={10}>
                 <InformationCard
                     title={'Adresse'}
