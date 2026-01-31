@@ -13,8 +13,6 @@ export interface TeamCardProps {
     description?: string[];
 }
 export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, description }) => {
-    const [isFlipped, setIsFlipped] = useState(false);
-
     return (
         <Center py={12}>
             <Box
@@ -38,7 +36,7 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                     mt={-12}
                     pos={'relative'}
                     height={'230px'}
-                    boxShadow={!isFlipped ? 'lg' : undefined}
+                    boxShadow={'lg'}
                     _after={{
                         transition: 'all .3s ease',
                         content: '""',
@@ -55,49 +53,16 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                             filter: 'blur(20px)',
                         },
                     }}>
-                    {!isFlipped &&
-                        <NextImage style={{ borderRadius: '0.5rem', objectFit: 'cover' }} sizes="50vw" src={picture.url} fill alt={`Team Foto von ${name}`} />
-                    }
-                    {isFlipped && description && description.length > 0 &&
-                        <List spacing={3} marginTop={10}>
-                            {description.map(quali =>
-                                <ListItem key={quali} fontSize={14}>
-                                    <ListIcon as={ChevronRightIcon} color='green.500' />
-                                    {quali}
-                                </ListItem>)}
-                        </List>
-                    }
+                    <NextImage style={{ borderRadius: '0.5rem', objectFit: 'cover' }} sizes="50vw" src={picture.url} fill alt={`Team Foto von ${name}`} />
                 </Box>
                 <Stack pt={10} align={'center'}>
-                    {!isFlipped && (<><Heading fontSize={'xl'} fontFamily={'body'} fontWeight={500}>
+                    <Heading fontSize={'xl'} fontFamily={'body'} fontWeight={500}>
                         {name}
                     </Heading>
                         <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                             {position}
-                        </Text></>)}
+                        </Text>
                     <Divider />
-                    {description && description.length > 0 && <Button
-                        rounded={'full'}
-                        size={'lg'}
-                        fontWeight={'medium'}
-                        px={6}
-                        colorScheme={'red'}
-                        bg={'var(--primary)'}
-                        transition="all 0.3s ease-in-out"
-                        boxShadow="md"
-                        _hover={{
-                            bg: 'var(--primary-hover)',
-                            transform: 'translateY(-2px)',
-                            boxShadow: 'lg'
-                        }}
-                        _active={{
-                            transform: 'translateY(0)',
-                            boxShadow: 'md'
-                        }}
-                        onClick={() => setIsFlipped(!isFlipped)}
-                    >
-                        {isFlipped ? 'Zurück' : 'Qualifikationen'}
-                    </Button>}
                 </Stack>
             </Box>
         </Center>
