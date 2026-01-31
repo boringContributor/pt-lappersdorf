@@ -15,6 +15,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'eu-central-1.graphassets.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'eu-central-1-shared-euc1-02.graphassets.com',
+      }
     ],
     minimumCacheTTL: 31536000
   },
@@ -23,7 +27,8 @@ const nextConfig = {
     defaultLocale: 'de'
   },
   env: {
-    graphql: 'https://api-eu-central-1.graphcms.com/v2/cl1gmn8vw4kir01xiala193ff/master'
+    graphql: 'https://api-eu-central-1.graphcms.com/v2/cl1gmn8vw4kir01xiala193ff/master',
+    aio: 'https://eu-central-1-shared-euc1-02.cdn.hygraph.com/content/clhheyhl0132z01um00ukankn/master'
   }
 }
 
