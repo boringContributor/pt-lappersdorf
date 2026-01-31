@@ -47,7 +47,7 @@ const Team: NextPage = ({ team }: InferGetServerSidePropsType<typeof getServerSi
                 <PageHeaderImg backgroundURL={team.backgroundURL.url} size={BackgroundImageSize.BIG} />
                 <PageHeading title="Unser" underlinedTitle='Team' />
 
-                <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
+                <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 4, md: 8, lg: 12 }} >
                     <SimpleGrid minChildWidth='300px' spacing={2}>
                         {team.employees.map((employee: TeamCardProps) => <TeamCard key={employee.name} {...employee} />)}
                     </SimpleGrid>

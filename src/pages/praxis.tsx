@@ -57,7 +57,7 @@ const Praxis: NextPage = ({ praxis }: InferGetServerSidePropsType<typeof getServ
         <Box>
             <PageHeaderImg backgroundURL={praxis.backgroundURL.url} />
             <PageHeading title={title} underlinedTitle={underlinedTitle} description={praxis.description.text} />
-            <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} >
+            <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 4, md: 8, lg: 12 }} >
                 <Gallery sliderImages={transformToGallery(praxis.praxisImage)} />
             </Box>
         </Box>

@@ -40,7 +40,7 @@ const Leistungen: NextPage = ({ service: { services, description, backgroundURL:
         <Box>
             <PageHeaderImg backgroundURL={url}/>
             <PageHeading title="Unsere" underlinedTitle='Leistungen' description={description} />
-            <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 2, sm: 12, md: 17 }} >
+            <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }} >
                 <LeistungAccordion {...services} />
             </Box>
         </Box>

@@ -212,7 +212,7 @@ const ServiceModal: FC<{
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay bg="blackAlpha.600" backdropFilter="blur(4px)" />
-      <ModalContent mx={4}>
+      <ModalContent mx={{ base: 3, sm: 4, md: 6 }}>
         <ModalHeader color="var(--primary)" pr={10}>
           {title}
         </ModalHeader>
@@ -222,6 +222,8 @@ const ServiceModal: FC<{
             fontSize="md"
             color="gray.700"
             lineHeight={1.8}
+            wordBreak="break-word"
+            overflowWrap="break-word"
             sx={{
               'p': { mb: 4 },
               'strong': { color: 'var(--primary)' },
@@ -433,12 +435,12 @@ const Bgm: NextPage = ({
         underlinedTitle="Gesundheitsmanagement"
       />
 
-      <Container maxW="7xl" pt={5} pb={10} px={{ base: 4, sm: 12, md: 17 }}>
+      <Container maxW="7xl" pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }}>
         {/* Introduction */}
         {introductions && introductions.length > 0 && (
           <Box
             mb={16}
-            p={8}
+            p={{ base: 4, md: 8 }}
             bg={introBg}
             rounded="xl"
             boxShadow="md"
@@ -447,6 +449,8 @@ const Bgm: NextPage = ({
               fontSize={{ base: 'md', md: 'lg' }}
               color="gray.700"
               lineHeight={1.8}
+              wordBreak="break-word"
+              overflowWrap="break-word"
               sx={{
                 'p': { mb: 4 },
                 'strong': { color: 'var(--primary)' },
