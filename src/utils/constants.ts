@@ -26,7 +26,7 @@ export const NAV_ITEMS: Array<NavItem> = [
         href: '/kontakt',
     },
     {
-        label: 'AIO Gesundheitsmanagement',
+        label: 'Gesundheitsmanagement',
         href: 'https://aio-gesundheitsmanagement.de',
         external: true
     }
