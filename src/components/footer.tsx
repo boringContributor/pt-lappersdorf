@@ -93,18 +93,6 @@ export const Footer = () => {
           >
             Kontakt
           </Link>
-          <Link
-            target='_blank'
-            href={"https://aio-gesundheitsmanagement.de"}
-            transition="all 0.2s ease-in-out"
-            _hover={{
-              color: 'var(--primary)',
-              textDecoration: 'underline',
-              textUnderlineOffset: '4px'
-            }}
-          >
-            All In One Gesundheitsmanagement
-          </Link>
         </Stack>
       </Container>
 
