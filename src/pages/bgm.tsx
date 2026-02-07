@@ -308,7 +308,7 @@ const TeamMemberCard: FC<{ member: TeamMember; isReversed?: boolean }> = ({ memb
               },
             }}
           >
-            <RichText content={member.description.raw} />
+            {/* <RichText content={member.description.raw} /> */}
           </Box>
         </Box>
       </Flex>
