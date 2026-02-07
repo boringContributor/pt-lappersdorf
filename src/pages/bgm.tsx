@@ -99,9 +99,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
         portrait {
           url
         }
-        description {
-          raw
-        }
         order
       }
       contacts {
@@ -237,81 +234,44 @@ const ServiceModal: FC<{
   );
 };
 
-const TeamMemberCard: FC<{ member: TeamMember; isReversed?: boolean }> = ({ member, isReversed }) => {
+const TeamMemberCard: FC<{ member: TeamMember }> = ({ member }) => {
   const bgColor = useColorModeValue('white', 'gray.800');
 
   return (
     <Box
       bg={bgColor}
-      boxShadow="xl"
-      rounded="2xl"
+      boxShadow="lg"
+      rounded="xl"
       overflow="hidden"
       transition="all 0.3s ease-in-out"
       _hover={{
         transform: 'translateY(-4px)',
-        boxShadow: '2xl',
+        boxShadow: 'xl',
       }}
+      textAlign="center"
     >
-      <Flex
-        direction={{ base: 'column', md: isReversed ? 'row-reverse' : 'row' }}
-        align="stretch"
+      <Box
+        position="relative"
+        width="100%"
+        height="250px"
       >
-        <Box
-          position="relative"
-          width={{ base: '100%', md: '280px' }}
-          minH={{ base: '300px', md: '350px' }}
-          flexShrink={0}
-        >
-          <NextImage
-            src={member.portrait.url}
-            fill
-            style={{ objectFit: 'cover' }}
-            alt={`Foto von ${member.name}`}
-            sizes="(max-width: 768px) 100vw, 280px"
-          />
-        </Box>
-        <Box p={{ base: 6, md: 8 }} flex={1}>
-          <Heading
-            as="h3"
-            fontSize={{ base: 'xl', md: '2xl' }}
-            color="var(--primary)"
-            mb={4}
-          >
-            {member.name}
-          </Heading>
-          <Box
-            fontSize="sm"
-            color="gray.600"
-            lineHeight={1.8}
-            sx={{
-              'ul': {
-                listStyleType: 'none',
-                pl: 0,
-              },
-              'li': {
-                position: 'relative',
-                pl: 5,
-                mb: 2,
-                _before: {
-                  content: '"•"',
-                  position: 'absolute',
-                  left: 0,
-                  color: 'var(--primary)',
-                  fontWeight: 'bold',
-                },
-              },
-              'p': {
-                mb: 3,
-              },
-              'strong': {
-                color: 'gray.800',
-              },
-            }}
-          >
-            {/* <RichText content={member.description.raw} /> */}
-          </Box>
-        </Box>
-      </Flex>
+        <NextImage
+          src={member.portrait.url}
+          fill
+          style={{ objectFit: 'cover' }}
+          alt={`Foto von ${member.name}`}
+          sizes="(max-width: 480px) 50vw, 200px"
+        />
+      </Box>
+      <Text
+        fontWeight={600}
+        fontSize="md"
+        color="var(--primary)"
+        py={4}
+        px={3}
+      >
+        {member.name}
+      </Text>
     </Box>
   );
 };
@@ -499,15 +459,14 @@ const Bgm: NextPage = ({
         {teams && teams.length > 0 && (
           <Box mb={16}>
             <SectionHeading title="Unser Team" subtitle="Experten für Ihre Gesundheit" />
-            <Stack spacing={8} mt={8}>
-              {sortedTeams.map((member: TeamMember, index: number) => (
+            <SimpleGrid columns={{ base: 2, sm: 3, lg: 4 }} spacing={6} mt={8}>
+              {sortedTeams.map((member: TeamMember) => (
                 <TeamMemberCard
                   key={member.name}
                   member={member}
-                  isReversed={index % 2 === 1}
                 />
               ))}
-            </Stack>
+            </SimpleGrid>
           </Box>
         )}
 
