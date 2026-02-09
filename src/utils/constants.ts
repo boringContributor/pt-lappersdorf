@@ -28,5 +28,10 @@ export const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Gesundheitsmanagement',
         href: '/bgm',
+    },
+    {
+        label: 'Physioteam Pollanten',
+        href: 'https://www.physioteam-pollanten.de/',
+        external: true,
     }
 ];

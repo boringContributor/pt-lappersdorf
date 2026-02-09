@@ -1,5 +1,5 @@
 import {
-    ChevronDownIcon, CloseIcon, HamburgerIcon
+    ChevronDownIcon, CloseIcon, ExternalLinkIcon, HamburgerIcon
 } from '@chakra-ui/icons';
 import {
     Box, Collapse, Flex, Icon, IconButton, Link, Stack, Text, useColorModeValue,
@@ -109,6 +109,7 @@ const DesktopNav = () => {
                                 transform: 'translateY(-2px)',
                             }}>
                             {navItem.label}
+                            {navItem.external && <ExternalLinkIcon mx='2px' mb='2px' />}
                         </Link>
                     </Box>
                 );
@@ -155,6 +156,7 @@ const MobileNavItem = ({ label, children, href, external }: NavItem) => {
                     fontWeight={600}
                     color={isActive ? 'var(--primary)' : useColorModeValue('gray.600', 'gray.200')}>
                     {label}
+                    {external && <ExternalLinkIcon mx='2px' mb='2px' />}
                 </Text>
                 {children && (
                     <Icon
