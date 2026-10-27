@@ -1,14 +1,13 @@
 
-import { Box } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import { gql, request } from "graphql-request";
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import { Gallery } from "../components/gallery";
-import { PageHeaderImg } from "../components/page-header-img";
-import { PageHeading } from "../components/page-heading";
+import { PageHero } from "../components/page-hero";
 import { URL } from "../types/url";
 
 const title = 'Unsere Praxis im Herzen von'
-const underlinedTitle = 'Lappersdorf'
+const highlight = 'Lappersdorf'
 
 type PraxisPage = {
     description: {
@@ -46,20 +45,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
 };
 
-const transformToGallery = (urls: URL[]): { src: string, title: string, w: number, h: number }[] => {
-    return urls.map(({ url }) => {
-        return { src: url, title: 'Praxis', w: 200, h: 20 }
-    })
-};
-
 const Praxis: NextPage = ({ praxis }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={praxis.backgroundURL.url} />
-            <PageHeading title={title} underlinedTitle={underlinedTitle} description={praxis.description.text} />
-            <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 4, md: 8, lg: 12 }} >
-                <Gallery sliderImages={transformToGallery(praxis.praxisImage)} />
-            </Box>
+            <PageHero title={title} highlight={highlight} description={praxis.description.text} backgroundURL={praxis.backgroundURL.url} />
+            <Container maxW="7xl" px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
+                <Gallery images={praxis.praxisImage.map(({ url }: URL) => url)} />
+            </Container>
         </Box>
     )
 };

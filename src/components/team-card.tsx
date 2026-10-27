@@ -1,70 +1,62 @@
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import {
-    Box, Button, Center, Divider, Heading, List, ListIcon, ListItem, Stack, Text, useColorModeValue
-} from '@chakra-ui/react';
+import { Box, Center, Heading, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import NextImage from 'next/image';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 export interface TeamCardProps {
     name: string;
-    picture: { url: string };
+    picture?: { url: string };
     position: string;
 
     description?: string[];
 }
+
+const initials = (name: string) =>
+    name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('');
+
 export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, description }) => {
     return (
-        <Center py={12}>
+        <Box role='group'>
             <Box
-                role={'group'}
-                p={6}
-                h={390}
-                maxW={'330px'}
-                w={'full'}
-                bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'2xl'}
-                rounded={'lg'}
-                pos={'relative'}
-                zIndex={1}
-                transition="all 0.3s ease-in-out"
-                _hover={{
-                    transform: 'translateY(-8px)',
-                    boxShadow: '2xl',
-                }}>
-                <Box
-                    rounded={'lg'}
-                    mt={-12}
-                    pos={'relative'}
-                    height={'230px'}
-                    boxShadow={'lg'}
-                    _after={{
-                        transition: 'all .3s ease',
-                        content: '""',
-                        w: 'full',
-                        h: 'full',
-                        pos: 'absolute',
-                        top: 5,
-                        left: 0,
-                        filter: 'blur(15px)',
-                        zIndex: -1,
-                    }}
-                    _groupHover={{
-                        _after: {
-                            filter: 'blur(20px)',
-                        },
-                    }}>
-                    <NextImage style={{ borderRadius: '0.5rem', objectFit: 'cover' }} sizes="50vw" src={picture.url} fill alt={`Team Foto von ${name}`} />
-                </Box>
-                <Stack pt={10} align={'center'}>
-                    <Heading fontSize={'xl'} fontFamily={'body'} fontWeight={500}>
-                        {name}
-                    </Heading>
-                        <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                            {position}
-                        </Text>
-                    <Divider />
-                </Stack>
+                position='relative'
+                overflow='hidden'
+                rounded='2xl'
+                bg='gray.100'
+                sx={{ aspectRatio: '4 / 5' }}>
+                {picture?.url ? (
+                    <NextImage
+                        src={picture.url}
+                        fill
+                        // the photos are 3:2 landscape cropped into a 4:5 box, so they render ~1.9x the card width
+                        sizes='(max-width: 768px) 95vw, (max-width: 992px) 63vw, (max-width: 1280px) 48vw, 560px'
+                        alt={`Team Foto von ${name}`}
+                        style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                        className='team-card-image'
+                    />
+                ) : (
+                    <Center h='full' bg='brand.50' color='brand.300' fontFamily='heading' fontWeight={800} fontSize='5xl'>
+                        {initials(name)}
+                    </Center>
+                )}
             </Box>
-        </Center>
+            <Box pt={4}>
+                <Heading as='h3' fontSize={{ base: 'md', md: 'lg' }} fontWeight={700}>
+                    {name}
+                </Heading>
+                <Text color='brand.500' fontSize='sm' fontWeight={600} mt={1}>
+                    {position}
+                </Text>
+                {description && description.length > 0 && (
+                    <Wrap spacing={1.5} mt={3} display={{ base: 'none', sm: 'flex' }}>
+                        {description.map((item) => (
+                            <WrapItem key={item}>
+                                <Tag size='sm' rounded='full' bg='gray.100' color='gray.700' fontWeight={500} px={2.5} py={1}>
+                                    {item}
+                                </Tag>
+                            </WrapItem>
+                        ))}
+                    </Wrap>
+                )}
+            </Box>
+        </Box>
     );
 };

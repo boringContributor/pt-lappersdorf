@@ -20,6 +20,8 @@ const nextConfig = {
         hostname: 'eu-central-1-shared-euc1-02.graphassets.com',
       }
     ],
+    // default of 75 makes the large hero and team photos look noticeably compressed
+    qualities: [90],
     minimumCacheTTL: 31536000
   },
   i18n: {

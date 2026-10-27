@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
-import { ItemProps, LeistungAccordion } from '../components/leistung-accordion';
-import { PageHeaderImg } from '../components/page-header-img';
-import { PageHeading } from "../components/page-heading";
+import { CtaBanner } from '../components/cta-banner';
+import { PageHero } from '../components/page-hero';
+import { ItemProps, ServiceGrid } from '../components/service-grid';
 interface ServicePage {
     service: {
         services: ItemProps[],
@@ -38,11 +38,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Leistungen: NextPage = ({ service: { services, description, backgroundURL: { url } } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={url}/>
-            <PageHeading title="Unsere" underlinedTitle='Leistungen' description={description} />
-            <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }} >
-                <LeistungAccordion {...services} />
-            </Box>
+            <PageHero title="Unsere" highlight='Leistungen' description={description} backgroundURL={url} />
+            <Container maxW="7xl" px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
+                <ServiceGrid services={services} />
+            </Container>
+            <CtaBanner />
         </Box>
     )
 };

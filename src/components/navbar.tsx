@@ -1,191 +1,122 @@
 import {
-    ChevronDownIcon, CloseIcon, ExternalLinkIcon, HamburgerIcon
-} from '@chakra-ui/icons';
-import {
-    Box, Collapse, Flex, Icon, IconButton, Link, Stack, Text, useColorModeValue,
-    useDisclosure
+    Box, Collapse, Container, Flex, HStack, Icon, IconButton, Link, Stack, useDisclosure
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { FiArrowUpRight, FiMenu, FiX } from 'react-icons/fi';
 import Logo from '../../public/logo.png';
 import { NavItem } from '../types/nav-item';
 import { NAV_ITEMS } from '../utils/constants';
 
+const isActive = (pathname: string, href?: string) =>
+    href === '/' ? pathname === '/' : !!href && pathname.startsWith(href);
+
 export const Navbar: FC = () => {
-    const { isOpen, onToggle } = useDisclosure();
-    const router = useRouter()
+    const { isOpen, onToggle, onClose } = useDisclosure();
+    const router = useRouter();
+
+    // close the mobile menu after navigating
+    useEffect(() => {
+        router.events.on('routeChangeStart', onClose);
+        return () => router.events.off('routeChangeStart', onClose);
+    }, [router.events, onClose]);
 
     return (
-        <Box sx={{ position: 'sticky', top: '0', zIndex: 2 }}>
-            <Flex
-                as='header'
-                bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('gray.600', 'white')}
-                minH={'60px'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                borderBottom={1}
-                borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
-                align={'center'}
-            >
-                <Flex
-                    flex={{ base: 1, md: 'auto' }}
-                    ml={{ base: -2 }}
-                    display={{ base: 'flex', md: 'none' }}>
+        <Box
+            as='header'
+            position='sticky'
+            top={0}
+            zIndex='sticky'
+            bg='rgba(255, 255, 255, 0.85)'
+            backdropFilter='saturate(180%) blur(12px)'
+            borderBottom='1px solid'
+            borderColor='blackAlpha.100'>
+            <Container maxW='7xl' px={{ base: 4, md: 6 }}>
+                <Flex h={{ base: '64px', md: '76px' }} align='center' justify='space-between' gap={6}>
+                    <Link as={NextLink} href='/' aria-label='Zur Startseite' flexShrink={0} display='flex'>
+                        <Image src={Logo} alt='Physioteam Lappersdorf' width={168} height={42} priority />
+                    </Link>
+
+                    <HStack as='nav' spacing={1} display={{ base: 'none', xl: 'flex' }}>
+                        {NAV_ITEMS.map((navItem) => (
+                            <DesktopNavItem key={navItem.label} {...navItem} active={isActive(router.pathname, navItem.href)} />
+                        ))}
+                    </HStack>
+
                     <IconButton
+                        display={{ base: 'inline-flex', xl: 'none' }}
                         onClick={onToggle}
-                        icon={
-                            isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
-                        variant={'ghost'}
-                        aria-label={'Toggle Navigation'}
+                        icon={<Icon as={isOpen ? FiX : FiMenu} boxSize={5} />}
+                        variant='ghost'
+                        colorScheme='gray'
+                        aria-label='Navigation umschalten'
+                        aria-expanded={isOpen}
                     />
                 </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Box
-                        ml={5}
-                        mr={5}
-                        transition="all 0.2s ease-in-out"
-                        _hover={{ cursor: 'pointer', transform: 'scale(1.02)' }}
-                        onClick={() => router.push('/')}
-                    >
-                        <Image src={Logo} alt='logo' width={200} height={50} />
-                    </Box>
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
-                    </Flex>
-                </Flex>
-            </Flex>
+            </Container>
 
             <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
+                <Stack
+                    as='nav'
+                    display={{ xl: 'none' }}
+                    px={4}
+                    pt={2}
+                    pb={6}
+                    spacing={1}
+                    borderTop='1px solid'
+                    borderColor='blackAlpha.100'>
+                    {NAV_ITEMS.map((navItem) => (
+                        <MobileNavItem key={navItem.label} {...navItem} active={isActive(router.pathname, navItem.href)} />
+                    ))}
+                </Stack>
             </Collapse>
-        </Box >
+        </Box>
     );
 }
 
-const DesktopNav = () => {
-    const router = useRouter();
+type NavItemProps = NavItem & { active: boolean };
 
-    const navLinkStyle = {
-        textDecoration: 'underline',
-        textUnderlineOffset: '10px',
-        textDecorationThickness: '2px',
-        color: 'var(--primary)',
-    };
+const DesktopNavItem = ({ label, href, external, active }: NavItemProps) => (
+    <Link
+        as={external ? undefined : NextLink}
+        href={href ?? '#'}
+        isExternal={external}
+        px={3}
+        py={2}
+        rounded='full'
+        fontSize='15px'
+        fontWeight={500}
+        whiteSpace='nowrap'
+        display='inline-flex'
+        alignItems='center'
+        gap={1}
+        color={active ? 'brand.500' : 'gray.600'}
+        bg={active ? 'brand.50' : 'transparent'}
+        transition='all 0.2s ease'
+        _hover={{ textDecoration: 'none', color: 'brand.500', bg: 'brand.50' }}>
+        {label}
+        {external && <Icon as={FiArrowUpRight} boxSize={4} />}
+    </Link>
+);
 
-    return (
-        <Stack direction={'row'} spacing={4}>
-            {NAV_ITEMS.map((navItem) => {
-                const isActive = router.pathname === navItem.href;
-
-                return (
-                    <Box key={navItem.label} display='grid' placeContent='center'>
-                        <Link
-                            p={2}
-                            href={navItem.href ?? '#'}
-                            fontSize={'medium'}
-                            fontWeight={500}
-                            target={navItem.external ? '_blank' : '_self'}
-                            position="relative"
-                            transition="all 0.2s ease-in-out"
-                            color={isActive ? 'var(--primary)' : 'inherit'}
-                            _before={isActive ? {
-                                content: '""',
-                                position: 'absolute',
-                                bottom: '-2px',
-                                left: '8px',
-                                right: '8px',
-                                height: '2px',
-                                bg: 'var(--primary)',
-                            } : undefined}
-                            _focus={{
-                                ...navLinkStyle
-                            }}
-                            _hover={{
-                                ...navLinkStyle,
-                                transform: 'translateY(-2px)',
-                            }}>
-                            {navItem.label}
-                            {navItem.external && <ExternalLinkIcon mx='2px' mb='2px' />}
-                        </Link>
-                    </Box>
-                );
-            })}
-        </Stack>
-    );
-};
-
-const MobileNav = () => {
-    return (
-        <Stack
-            bg={useColorModeValue('white', 'gray.800')}
-            p={4}
-            display={{ md: 'none' }}>
-            {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
-            ))}
-        </Stack>
-    );
-};
-
-const MobileNavItem = ({ label, children, href, external }: NavItem) => {
-    const { isOpen, onToggle } = useDisclosure();
-    const router = useRouter();
-    const isActive = router.pathname === href;
-
-    return (
-        <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
-                as={Link}
-                href={href ?? '#'}
-                justify={'space-between'}
-                align={'center'}
-                bg={isActive ? 'var(--primary-light)' : 'transparent'}
-                px={3}
-                borderRadius="md"
-                transition="all 0.2s ease-in-out"
-                _hover={{
-                    textDecoration: 'none',
-                    bg: 'var(--primary-light)',
-                }}>
-                <Text
-                    fontWeight={600}
-                    color={isActive ? 'var(--primary)' : useColorModeValue('gray.600', 'gray.200')}>
-                    {label}
-                    {external && <ExternalLinkIcon mx='2px' mb='2px' />}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={'all .25s ease-in-out'}
-                        transform={isOpen ? 'rotate(180deg)' : ''}
-                        w={6}
-                        h={6}
-                    />
-                )}
-            </Flex>
-
-            <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-                <Stack
-                    mt={2}
-                    pl={4}
-                    borderLeft={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
-                    align={'start'}>
-                    {children &&
-                        children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href} target={external ? '_blank' : '_self'}
-                            >
-                                {child.label}
-                            </Link>
-                        ))}
-                </Stack>
-            </Collapse>
-        </Stack>
-    );
-};
+const MobileNavItem = ({ label, href, external, active }: NavItemProps) => (
+    <Link
+        as={external ? undefined : NextLink}
+        href={href ?? '#'}
+        isExternal={external}
+        px={4}
+        py={3}
+        rounded='xl'
+        fontWeight={600}
+        display='flex'
+        alignItems='center'
+        justifyContent='space-between'
+        color={active ? 'brand.500' : 'gray.700'}
+        bg={active ? 'brand.50' : 'transparent'}
+        _hover={{ textDecoration: 'none', bg: 'brand.50' }}>
+        {label}
+        {external && <Icon as={FiArrowUpRight} boxSize={5} />}
+    </Link>
+);

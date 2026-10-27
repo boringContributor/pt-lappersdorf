@@ -1,11 +1,6 @@
-import {
-    Box,
-    Button,
-    Center,
-    Heading, Stack, Text, useColorModeValue
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Icon, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import { FC } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { URL } from '../types/url';
@@ -20,89 +15,53 @@ export interface BlogPostProps {
     slug: string;
 }
 
-export const BlogPost: FC<BlogPostProps> = ({ title, date, description: { text }, backgroundURL: { url }, slug }) => {
-    const router = useRouter();
+export const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
 
+export const BlogPost: FC<BlogPostProps> = ({ title, date, description: { text }, backgroundURL: { url }, slug }) => {
     return (
-        <Center py={6}>
-            <Box
-                h={'full'}
-                maxW={'20rem'}
-                w={'full'}
-                bg={useColorModeValue('white', 'gray.900')}
-                boxShadow={'lg'}
-                rounded={'lg'}
-                overflow={'hidden'}
-                transition="all 0.3s ease-in-out"
-                borderWidth="1px"
-                borderColor={useColorModeValue('gray.200', 'gray.700')}
-                _hover={{
-                    transform: 'translateY(-8px)',
-                    boxShadow: '2xl',
-                    borderColor: 'var(--primary)',
-                }}
-                display="flex"
-                flexDirection="column">
-                <Box
-                    h={'200px'}
-                    bg={'gray.100'}
-                    pos={'relative'}
-                    overflow={'hidden'}
-                    cursor={'pointer'}
-                    onClick={() => router.push(`/aktuelles/${slug}`)}>
-                    <Image
-                        src={url}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        alt={title}
-                    />
-                </Box>
-                <Stack p={6} spacing={3} flex="1" display="flex" flexDirection="column">
-                    <Text
-                        color={'var(--primary)'}
-                        textTransform={'uppercase'}
-                        fontWeight={700}
-                        fontSize={'xs'}
-                        letterSpacing={1.2}>
-                        {new Date(date).toLocaleDateString('de-DE', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })}
-                    </Text>
-                    <Heading
-                        color={useColorModeValue('gray.700', 'white')}
-                        fontSize={'xl'}
-                        fontFamily={'body'}
-                        fontWeight={600}
-                        lineHeight={1.3}
-                        noOfLines={2}>
-                        {title}
-                    </Heading>
-                    <Text
-                        color={'gray.600'}
-                        fontSize={'sm'}
-                        noOfLines={3}
-                        flex="1">
-                        {text.replace(/\\n/g, ' ').replace(/\n/g, ' ')}
-                    </Text>
-                    <Button
-                        size="sm"
-                        variant="ghost"
-                        colorScheme="red"
-                        rightIcon={<FiArrowRight />}
-                        onClick={() => router.push(`/aktuelles/${slug}`)}
-                        alignSelf="flex-start"
-                        mt={2}
-                        fontWeight={600}
-                        _hover={{
-                            bg: 'var(--primary-light)',
-                            color: 'var(--primary)',
-                        }}>
-                        Weiterlesen
-                    </Button>
-                </Stack>
+        <LinkBox
+            as='article'
+            role='group'
+            display='flex'
+            flexDirection='column'
+            h='full'
+            bg='white'
+            rounded='2xl'
+            overflow='hidden'
+            border='1px solid'
+            borderColor='gray.100'
+            transition='all 0.25s ease'
+            _hover={{
+                transform: 'translateY(-4px)',
+                boxShadow: '0 20px 40px -20px rgba(134, 37, 37, 0.35)',
+            }}>
+            <Box position='relative' overflow='hidden' bg='gray.100' sx={{ aspectRatio: '16 / 10' }}>
+                <Image
+                    src={url}
+                    fill
+                    sizes='(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px'
+                    style={{ objectFit: 'cover' }}
+                    alt={title}
+                />
             </Box>
-        </Center>
+            <Flex direction='column' flex={1} p={{ base: 6, md: 7 }} gap={3}>
+                <Text color='brand.500' fontWeight={600} fontSize='sm'>
+                    {formatDate(date)}
+                </Text>
+                <Heading as='h2' fontSize='xl' fontWeight={700} lineHeight={1.3} noOfLines={2}>
+                    <LinkOverlay as={NextLink} href={`/aktuelles/${slug}`}>
+                        {title}
+                    </LinkOverlay>
+                </Heading>
+                <Text color='gray.600' noOfLines={3} flex={1}>
+                    {text.replace(/\\n/g, ' ').replace(/\n/g, ' ')}
+                </Text>
+                <Flex align='center' gap={2} mt={2} color='brand.500' fontWeight={600} fontSize='sm'>
+                    Weiterlesen
+                    <Icon as={FiArrowRight} transition='transform 0.2s ease' _groupHover={{ transform: 'translateX(4px)' }} />
+                </Flex>
+            </Flex>
+        </LinkBox>
     );
 }

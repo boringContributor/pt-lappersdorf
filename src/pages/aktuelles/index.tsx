@@ -1,10 +1,9 @@
 
-import { Box, SimpleGrid } from '@chakra-ui/react';
+import { Box, Container, SimpleGrid } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next/types';
 import { BlogPost, BlogPostProps } from '../../components/blog-post';
-import { PageHeaderImg } from '../../components/page-header-img';
-import { PageHeading } from "../../components/page-heading";
+import { PageHero } from '../../components/page-hero';
 
 type Aktuelles = {
     blogPosts: BlogPostProps[],
@@ -54,13 +53,12 @@ return {
 const Aktuelles: NextPage = ({ blogPosts, description, backgroundURL: { url } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={url} />
-            <PageHeading title="Aktuelles" description={description} />
-            <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }} >
+            <PageHero title="Aktuelles" description={description} backgroundURL={url} />
+            <Container maxW="7xl" px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 8 }}>
                     {blogPosts.map((post: any) => <BlogPost key={post.slug} title={post.title} description={post.description} date={post.date} slug={post.slug} backgroundURL={post.backgroundURL} />)}
                 </SimpleGrid>
-            </Box>
+            </Container>
         </Box>
     )
 };

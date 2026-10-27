@@ -1,12 +1,14 @@
 import {
   Box,
+  Button,
   Center,
   Container,
-  Divider,
   Flex,
   Heading,
+  Icon,
   Image,
-  Link,
+  LinkBox,
+  LinkOverlay,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -16,16 +18,17 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { gql, request } from 'graphql-request';
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import NextImage from 'next/image';
-import { FC, useState } from 'react';
-import { FaCheckCircle } from 'react-icons/fa';
-import { PageHeading } from '../components/page-heading';
+import { FC, ReactNode, useState } from 'react';
+import { FiArrowRight, FiArrowUpRight, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
+import { PageHero } from '../components/page-hero';
+import { Prose } from '../components/prose';
+import { SectionHeading } from '../components/section-heading';
 import { CommonSEO } from '../components/seo';
 
 interface Presentation {
@@ -52,7 +55,7 @@ interface TeamMember {
 
 interface Contact {
   addresse: string;
-  telefon: string;
+  telefon: string | null;
   email: string;
 }
 
@@ -129,72 +132,53 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-const SectionHeading: FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => {
-  return (
-    <Box textAlign="center" mb={8}>
-      <Heading
-        as="h2"
-        fontSize={{ base: '2xl', md: '3xl' }}
-        color="var(--primary)"
-        mb={2}
-      >
-        {title}
-      </Heading>
-      {subtitle && (
-        <Text color="gray.600" fontSize={{ base: 'md', md: 'lg' }}>
-          {subtitle}
-        </Text>
-      )}
-      <Divider mt={4} borderColor="var(--primary)" width="100px" mx="auto" borderWidth={2} />
-    </Box>
-  );
-};
+const Section: FC<{ children: ReactNode; muted?: boolean }> = ({ children, muted }) => (
+  <Box bg={muted ? 'gray.50' : undefined} py={{ base: 14, md: 20 }}>
+    <Container maxW="7xl" px={{ base: 4, md: 6 }}>
+      {children}
+    </Container>
+  </Box>
+);
 
 const ServiceCard: FC<{
   title: string;
   description?: { raw: any; text?: string };
   onClick?: () => void;
 }> = ({ title, description, onClick }) => {
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
-
   return (
     <Box
-      p={5}
-      bg={bgColor}
-      borderRadius="lg"
-      border="1px solid"
-      borderColor={borderColor}
-      boxShadow="md"
-      transition="all 0.3s ease-in-out"
-      cursor={onClick ? 'pointer' : 'default'}
+      as="button"
+      type="button"
+      role="group"
       onClick={onClick}
+      textAlign="left"
+      w="full"
+      h="full"
+      p={6}
+      bg="white"
+      rounded="2xl"
+      border="1px solid"
+      borderColor="gray.100"
+      display="flex"
+      flexDirection="column"
+      transition="all 0.25s ease"
       _hover={{
-        boxShadow: 'xl',
-        borderColor: 'var(--primary)',
-        transform: 'translateY(-4px)',
+        borderColor: 'brand.100',
+        boxShadow: '0 16px 36px -20px rgba(134, 37, 37, 0.4)',
+        transform: 'translateY(-2px)',
       }}
-      height="100%"
     >
-      <Flex align="flex-start" gap={3}>
-        <Box color="var(--primary)" mt={1} flexShrink={0}>
-          <FaCheckCircle size={18} />
-        </Box>
-        <Box>
-          <Text fontWeight={600} fontSize="md" mb={description?.text ? 2 : 0}>
-            {title}
-          </Text>
-          {description?.text && (
-            <Text fontSize="sm" color="gray.600" noOfLines={2}>
-              {description.text.replace(/\\n/g, ' ').substring(0, 100)}...
-            </Text>
-          )}
-          {onClick && (
-            <Text fontSize="xs" color="var(--primary)" mt={2} fontWeight={500}>
-              Mehr erfahren →
-            </Text>
-          )}
-        </Box>
+      <Heading as="h3" fontSize="lg" fontWeight={700} mb={2}>
+        {title}
+      </Heading>
+      {description?.text && (
+        <Text fontSize="sm" color="gray.600" noOfLines={2} mb={4}>
+          {description.text.replace(/\\n/g, ' ')}
+        </Text>
+      )}
+      <Flex align="center" gap={2} mt="auto" color="brand.500" fontWeight={600} fontSize="sm">
+        Mehr erfahren
+        <Icon as={FiArrowRight} transition="transform 0.2s ease" _groupHover={{ transform: 'translateX(4px)' }} />
       </Flex>
     </Box>
   );
@@ -207,27 +191,17 @@ const ServiceModal: FC<{
   description: { raw: any };
 }> = ({ isOpen, onClose, title, description }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" isCentered>
       <ModalOverlay bg="blackAlpha.600" backdropFilter="blur(4px)" />
-      <ModalContent mx={{ base: 3, sm: 4, md: 6 }}>
-        <ModalHeader color="var(--primary)" pr={10}>
+      <ModalContent mx={{ base: 3, sm: 4, md: 6 }} rounded="2xl">
+        <ModalHeader fontFamily="heading" fontSize="2xl" fontWeight={800} pt={8} px={8} pr={14}>
           {title}
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <Box
-            fontSize="md"
-            color="gray.700"
-            lineHeight={1.8}
-            wordBreak="break-word"
-            overflowWrap="break-word"
-            sx={{
-              'p': { mb: 4 },
-              'strong': { color: 'var(--primary)' },
-            }}
-          >
+        <ModalCloseButton top={6} right={6} rounded="full" />
+        <ModalBody px={8} pb={8}>
+          <Prose fontSize="md">
             <RichText content={description.raw} />
-          </Box>
+          </Prose>
         </ModalBody>
       </ModalContent>
     </Modal>
@@ -235,133 +209,124 @@ const ServiceModal: FC<{
 };
 
 const TeamMemberCard: FC<{ member: TeamMember }> = ({ member }) => {
-  const bgColor = useColorModeValue('white', 'gray.800');
-
   return (
-    <Box
-      bg={bgColor}
-      boxShadow="lg"
-      rounded="xl"
-      overflow="hidden"
-      transition="all 0.3s ease-in-out"
-      _hover={{
-        transform: 'translateY(-4px)',
-        boxShadow: 'xl',
-      }}
-      textAlign="center"
-    >
-      <Box
-        position="relative"
-        width="100%"
-        height="250px"
-      >
+    <Box>
+      <Box position="relative" overflow="hidden" rounded="2xl" bg="gray.100" sx={{ aspectRatio: '4 / 5' }}>
         <NextImage
           src={member.portrait.url}
           fill
           style={{ objectFit: 'cover' }}
           alt={`Foto von ${member.name}`}
-          sizes="(max-width: 480px) 50vw, 200px"
+          sizes="(max-width: 768px) 50vw, 300px"
         />
       </Box>
-      <Text
-        fontWeight={600}
-        fontSize="md"
-        color="var(--primary)"
-        py={4}
-        px={3}
-      >
+      <Heading as="h3" fontSize={{ base: 'md', md: 'lg' }} fontWeight={700} pt={4}>
         {member.name}
-      </Text>
+      </Heading>
     </Box>
   );
 };
 
 const PartnerCard: FC<{ partner: Partner }> = ({ partner }) => {
   return (
-    <Box
+    <LinkBox
+      role="group"
+      h="full"
       p={6}
-      bg={useColorModeValue('white', 'gray.800')}
-      boxShadow="lg"
-      rounded="lg"
-      transition="all 0.3s ease-in-out"
-      _hover={{
-        transform: 'translateY(-4px)',
-        boxShadow: 'xl',
-      }}
+      bg="white"
+      rounded="2xl"
+      border="1px solid"
+      borderColor="gray.100"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      textAlign="center"
+      transition="all 0.25s ease"
+      _hover={{ borderColor: 'brand.100', boxShadow: '0 16px 36px -20px rgba(134, 37, 37, 0.4)' }}
     >
       {partner.logo && (
-        <Center mb={4}>
+        <Center h="72px" w="full" mb={5}>
           <Image
             src={partner.logo.url}
             alt={partner.name}
-            maxH="80px"
+            maxH="72px"
+            maxW="80%"
             objectFit="contain"
+            filter="grayscale(1)"
+            opacity={0.75}
+            transition="all 0.25s ease"
+            _groupHover={{ filter: 'none', opacity: 1 }}
           />
         </Center>
       )}
-      <Heading fontSize="lg" mb={2} textAlign="center">
-        {partner.name}
+      <Heading as="h3" fontSize="md" fontWeight={700}>
+        {partner.website ? (
+          <LinkOverlay href={partner.website} isExternal>
+            {partner.name}
+          </LinkOverlay>
+        ) : partner.name}
       </Heading>
       {partner.description && (
-        <Text fontSize="sm" color="gray.600" textAlign="center" mb={3}>
+        <Text fontSize="sm" color="gray.600" mt={2}>
           {partner.description}
         </Text>
       )}
       {partner.website && (
-        <Center>
-          <Link
-            href={partner.website}
-            isExternal
-            color="var(--primary)"
-            fontWeight={500}
-            _hover={{ textDecoration: 'underline' }}
-          >
-            Website besuchen
-          </Link>
-        </Center>
+        <Flex align="center" gap={1} mt="auto" pt={3} fontSize="sm" fontWeight={600} color="brand.500">
+          Website <Icon as={FiArrowUpRight} />
+        </Flex>
       )}
-    </Box>
+    </LinkBox>
   );
 };
 
 const ContactInfo: FC<{ contact: Contact }> = ({ contact }) => {
+  const items = [
+    { icon: FiMapPin, label: 'Adresse', value: contact.addresse },
+    contact.telefon && { icon: FiPhone, label: 'Telefon', value: contact.telefon, href: `tel:${contact.telefon.replace(/\s/g, '')}` },
+    contact.email && { icon: FiMail, label: 'E-Mail', value: contact.email, href: `mailto:${contact.email}` },
+  ].filter(Boolean) as { icon: typeof FiMail; label: string; value: string; href?: string }[];
+
   return (
-    <Box
-      p={8}
-      bg={useColorModeValue('white', 'gray.800')}
-      boxShadow="lg"
-      rounded="lg"
-      textAlign="center"
+    <Flex
+      direction={{ base: 'column', lg: 'row' }}
+      gap={{ base: 8, lg: 12 }}
+      align={{ base: 'flex-start', lg: 'center' }}
+      justify="space-between"
+      bg="brand.500"
+      color="white"
+      rounded={{ base: '2xl', md: '3xl' }}
+      px={{ base: 6, md: 12 }}
+      py={{ base: 10, md: 12 }}
     >
-      <Stack spacing={4}>
-        <Box>
-          <Text fontWeight={600} color="var(--primary)" mb={1}>
-            Adresse
-          </Text>
-          <Text color="gray.600" whiteSpace="pre-line">
-            {contact.addresse}
-          </Text>
-        </Box>
-        <Divider />
-        <Box>
-          <Text fontWeight={600} color="var(--primary)" mb={1}>
-            Telefon
-          </Text>
-          <Link href={`tel:${contact.telefon}`} color="gray.600">
-            {contact.telefon}
-          </Link>
-        </Box>
-        <Divider />
-        <Box>
-          <Text fontWeight={600} color="var(--primary)" mb={1}>
-            E-Mail
-          </Text>
-          <Link href={`mailto:${contact.email}`} color="gray.600">
-            {contact.email}
-          </Link>
-        </Box>
+      <Box maxW="md">
+        <Text fontWeight={700} fontSize="sm" textTransform="uppercase" letterSpacing="0.1em" color="brand.100" mb={3}>
+          Kontakt
+        </Text>
+        <Heading as="h2" color="white" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={800}>
+          Wir freuen uns auf Ihre Anfrage
+        </Heading>
+      </Box>
+      <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 10 }}>
+        {items.map((item) => (
+          <Flex key={item.label} gap={3} align="flex-start">
+            <Center w={10} h={10} rounded="xl" bg="whiteAlpha.200" flexShrink={0}>
+              <Icon as={item.icon} />
+            </Center>
+            <Box>
+              <Text fontSize="sm" color="brand.100">{item.label}</Text>
+              {item.href ? (
+                <Text as="a" href={item.href} fontWeight={600} _hover={{ textDecoration: 'underline' }}>
+                  {item.value}
+                </Text>
+              ) : (
+                <Text fontWeight={600} whiteSpace="pre-line">{item.value}</Text>
+              )}
+            </Box>
+          </Flex>
+        ))}
       </Stack>
-    </Box>
+    </Flex>
   );
 };
 
@@ -376,7 +341,7 @@ const Bgm: NextPage = ({
   const sortedTeams = [...teams].sort((a: TeamMember, b: TeamMember) => a.order - b.order);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState<{ title: string; description: { raw: any } } | null>(null);
-  const introBg = useColorModeValue('gray.50', 'gray.700');
+  const contactEmail = contacts?.[0]?.email;
 
   const handleOpenModal = (title: string, description: { raw: any }) => {
     setSelectedItem({ title, description });
@@ -390,110 +355,106 @@ const Bgm: NextPage = ({
         description="Betriebliches Gesundheitsmanagement - Vorträge, Kurse und Coaching für Ihre Gesundheit"
       />
 
-      <PageHeading
+      <PageHero
         title="Betriebliches"
-        underlinedTitle="Gesundheitsmanagement"
-      />
-
-      <Container maxW="7xl" pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }}>
-        {/* Introduction */}
-        {introductions && introductions.length > 0 && (
-          <Box
-            mb={16}
-            p={{ base: 4, md: 8 }}
-            bg={introBg}
-            rounded="xl"
-            boxShadow="md"
-          >
-            <Box
-              fontSize={{ base: 'md', md: 'lg' }}
-              color="gray.700"
-              lineHeight={1.8}
-              wordBreak="break-word"
-              overflowWrap="break-word"
-              sx={{
-                'p': { mb: 4 },
-                'strong': { color: 'var(--primary)' },
-              }}
+        highlight={"Gesundheits\u00ADmanagement"}
+        description="Vorträge, Kurse und Coaching für Ihre Gesundheit – für Ihre Firma, Ihren Verein oder für Sie selbst."
+      >
+        {contactEmail && (
+          <Box pt={2}>
+            <Button
+              as="a"
+              href={`mailto:${contactEmail}`}
+              size="lg"
+              bg="white"
+              color="brand.500"
+              leftIcon={<FiMail />}
+              _hover={{ bg: 'brand.50' }}
             >
-              <RichText content={introductions[0].introduction.raw} />
+              Anfrage senden
+            </Button>
+          </Box>
+        )}
+      </PageHero>
+
+      {/* Introduction */}
+      {introductions && introductions.length > 0 && (
+        <Section>
+          <SimpleGrid columns={{ base: 1, lg: 12 }} spacing={{ base: 6, lg: 12 }}>
+            <Box gridColumn={{ lg: 'span 4' }}>
+              <SectionHeading eyebrow="Über das Angebot" title="Gesundheit mit all ihren Facetten" />
             </Box>
-          </Box>
-        )}
+            <Prose gridColumn={{ lg: 'span 8' }}>
+              <RichText content={introductions[0].introduction.raw} />
+            </Prose>
+          </SimpleGrid>
+        </Section>
+      )}
 
-        {/* Presentations / Vorträge */}
-        {presentations && presentations.length > 0 && (
-          <Box mb={16}>
-            <SectionHeading title="Vorträge" subtitle="Impulse für Ihre Gesundheit" />
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={4}>
-              {presentations.map((item: Presentation) => (
-                <ServiceCard
-                  key={item.id}
-                  title={item.title}
-                  description={item.description}
-                  onClick={() => handleOpenModal(item.title, item.description)}
-                />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+      {/* Presentations / Vorträge */}
+      {presentations && presentations.length > 0 && (
+        <Section muted>
+          <SectionHeading eyebrow="Vorträge" title="Impulse für Ihre Gesundheit" />
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 4, md: 5 }}>
+            {presentations.map((item: Presentation) => (
+              <ServiceCard
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                onClick={() => handleOpenModal(item.title, item.description)}
+              />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
-        {/* Courses / Kurse */}
-        {courses && courses.length > 0 && (
-          <Box mb={16}>
-            <SectionHeading title="Kurse" subtitle="Aktiv für Ihre Gesundheit" />
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={4}>
-              {courses.map((item: Course, index: number) => (
-                <ServiceCard
-                  key={index}
-                  title={item.title}
-                  description={item.description}
-                  onClick={() => handleOpenModal(item.title, item.description)}
-                />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+      {/* Courses / Kurse */}
+      {courses && courses.length > 0 && (
+        <Section>
+          <SectionHeading eyebrow="Kurse" title="Aktiv für Ihre Gesundheit" />
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 4, md: 5 }}>
+            {courses.map((item: Course, index: number) => (
+              <ServiceCard
+                key={index}
+                title={item.title}
+                description={item.description}
+                onClick={() => handleOpenModal(item.title, item.description)}
+              />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
-        {/* Team */}
-        {teams && teams.length > 0 && (
-          <Box mb={16}>
-            <SectionHeading title="Unser Team" subtitle="Experten für Ihre Gesundheit" />
-            <SimpleGrid columns={{ base: 2, sm: 3, lg: 4 }} spacing={6} mt={8}>
-              {sortedTeams.map((member: TeamMember) => (
-                <TeamMemberCard
-                  key={member.name}
-                  member={member}
-                />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+      {/* Team */}
+      {teams && teams.length > 0 && (
+        <Section muted>
+          <SectionHeading eyebrow="Unser Team" title="Experten für Ihre Gesundheit" />
+          <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={{ base: 4, md: 6 }}>
+            {sortedTeams.map((member: TeamMember) => (
+              <TeamMemberCard key={member.name} member={member} />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
-        {/* Partners */}
-        {partners && partners.length > 0 && (
-          <Box mb={16}>
-            <SectionHeading title="Unsere Partner" />
-            <SimpleGrid minChildWidth="250px" spacing={6}>
-              {partners.map((partner: Partner) => (
-                <PartnerCard key={partner.name} partner={partner} />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+      {/* Partners */}
+      {partners && partners.length > 0 && (
+        <Section>
+          <SectionHeading eyebrow="Netzwerk" title="Unsere Partner" />
+          <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={{ base: 4, md: 5 }}>
+            {partners.map((partner: Partner) => (
+              <PartnerCard key={partner.name} partner={partner} />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
-        {/* Contact */}
-        {contacts && contacts.length > 0 && (
-          <Box>
-            <SectionHeading title="Kontakt" subtitle="Wir freuen uns auf Ihre Anfrage" />
-            <Center>
-              <Box maxW="400px" w="full">
-                <ContactInfo contact={contacts[0]} />
-              </Box>
-            </Center>
-          </Box>
-        )}
-      </Container>
+      {/* Contact */}
+      {contacts && contacts.length > 0 && (
+        <Container maxW="7xl" px={{ base: 4, md: 6 }}>
+          <ContactInfo contact={contacts[0]} />
+        </Container>
+      )}
 
       {/* Detail Modal */}
       {selectedItem && (

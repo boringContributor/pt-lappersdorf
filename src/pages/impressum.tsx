@@ -1,8 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import { gql, request } from "graphql-request";
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import ReactMarkdown from "react-markdown";
-import { PageHeading } from "../components/page-heading";
+import { PageHero } from "../components/page-hero";
+import { Prose } from "../components/prose";
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -29,10 +30,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Impressum: NextPage = ({ impressum: { content } }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
-            <PageHeading title='Impressum' />
-            <ReactMarkdown>
-                {content}
-            </ReactMarkdown>
+            <PageHero title='Impressum' highlight='& Datenschutz' />
+            <Container maxW='3xl' px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
+                {/* the content repeats the page title as h1 and uses single line breaks for addresses */}
+                <Prose fontSize='md' sx={{ '& > h1:first-of-type': { display: 'none' }, 'p': { whiteSpace: 'pre-line' } }}>
+                    <ReactMarkdown>
+                        {content}
+                    </ReactMarkdown>
+                </Prose>
+            </Container>
         </Box>
     )
 };

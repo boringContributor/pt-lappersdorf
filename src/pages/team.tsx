@@ -1,8 +1,8 @@
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Container, SimpleGrid } from '@chakra-ui/react'
 import { gql, request } from 'graphql-request'
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { BackgroundImageSize, PageHeaderImg } from '../components/page-header-img'
-import { PageHeading } from '../components/page-heading'
+import { CtaBanner } from '../components/cta-banner'
+import { PageHero } from '../components/page-hero'
 import { CommonSEO } from '../components/seo'
 import { TeamCard, TeamCardProps } from '../components/team-card'
 import { siteMetadata } from '../data/site-metadata'
@@ -43,16 +43,14 @@ const Team: NextPage = ({ team }: InferGetServerSidePropsType<typeof getServerSi
     return (
         <>
             <CommonSEO title={siteMetadata.title} description={siteMetadata.description} />
-            <main>
-                <PageHeaderImg backgroundURL={team.backgroundURL.url} size={BackgroundImageSize.BIG} />
-                <PageHeading title="Unser" underlinedTitle='Team' />
+            <PageHero title="Unser" highlight='Team' backgroundURL={team.backgroundURL.url} size='lg' />
 
-                <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 4, md: 8, lg: 12 }} >
-                    <SimpleGrid minChildWidth='300px' spacing={2}>
-                        {team.employees.map((employee: TeamCardProps) => <TeamCard key={employee.name} {...employee} />)}
-                    </SimpleGrid>
-                </Box>
-            </main>
+            <Container maxW="7xl" px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
+                <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacingX={{ base: 4, md: 6 }} spacingY={{ base: 8, md: 12 }}>
+                    {team.employees.map((employee: TeamCardProps) => <TeamCard key={employee.name} {...employee} />)}
+                </SimpleGrid>
+            </Container>
+            <CtaBanner />
         </>
     )
 }

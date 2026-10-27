@@ -2,8 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { gql, request } from 'graphql-request';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import { ContactInformation, ContactInformationProps } from "../components/contact-information";
-import { PageHeaderImg } from "../components/page-header-img";
-import { PageHeading } from "../components/page-heading";
+import { PageHero } from "../components/page-hero";
 import { PageMeta } from "../types/page-meta";
 
 type ContactPage = ContactInformationProps & PageMeta
@@ -40,8 +39,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Contact: NextPage = ({ contact }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <Box>
-            <PageHeaderImg backgroundURL={contact.backgroundURL.url} />
-            <PageHeading title="Unsere" underlinedTitle='Öffnungszeiten' description={contact.description} />
+            <PageHero title="Unsere" highlight='Öffnungszeiten' description={contact.description} backgroundURL={contact.backgroundURL.url} />
             <ContactInformation {...contact} />
         </Box>
     )

@@ -1,23 +1,13 @@
-import {
-    Box,
-    Flex,
-    SimpleGrid,
-    Stat,
-    StatLabel,
-    StatNumber,
-    Text,
-    useColorModeValue,
-    Link
-} from '@chakra-ui/react';
-import { EmailIcon, PhoneIcon, InfoOutlineIcon } from '@chakra-ui/icons'
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import { FC, ReactNode } from 'react';
-import { GoogleMap } from "./google-map";
+import { Box, Center, Container, Flex, Icon, Link, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { FC } from 'react';
+import { IconType } from 'react-icons';
+import { FiMail, FiMapPin, FiPhone, FiPrinter } from 'react-icons/fi';
+import { GoogleMap } from './google-map';
 
 interface InformationCardProps {
     title: string;
     info: string;
-    icon: ReactNode;
+    icon: IconType;
     href?: string;
 }
 
@@ -29,82 +19,66 @@ export interface ContactInformationProps {
 }
 
 const InformationCard = ({ title, info, icon, href }: InformationCardProps) => {
-    return (
-        <Box
-            transition="all 0.3s ease-in-out"
-            _hover={{
-                borderColor: 'var(--primary)',
-                color: 'var(--primary)',
-                transform: 'translateY(-4px)',
-            }}>
-            <Stat
-                px={{ base: 2, md: 4 }}
-                py={'5'}
-                shadow={'lg'}
-                border={'1px solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.700')}
-                rounded={'lg'}
-                transition="inherit">
-                <Flex justifyContent={'space-between'}>
-                    <Box pl={{ base: 2, md: 4 }} >
-                        <StatLabel fontWeight={'semibold'} isTruncated color="gray.500">
-                            {title}
-                        </StatLabel>
-                        <StatNumber fontSize={{ base: 'lg', md: 'xl' }} fontWeight={'medium'} mt={2}>
-                            <Link
-                                _hover={{ textDecoration: 'none', color: 'var(--primary)' }}
-                                href={href}
-                                isExternal
-                                transition="color 0.2s ease-in-out"
-                            >
-                                {info}
-                            </Link>
-                        </StatNumber>
-                    </Box>
-                    <Box
-                        my={'auto'}
-                        color={useColorModeValue('var(--primary)', 'gray.200')}
-                        alignContent={'center'}
-                        transition="inherit">
-                        {icon}
-                    </Box>
-                </Flex>
-            </Stat>
-        </Box>
+    const content = (
+        <Flex
+            align='center'
+            gap={4}
+            p={5}
+            h='full'
+            bg='white'
+            rounded='2xl'
+            border='1px solid'
+            borderColor='gray.100'
+            transition='all 0.2s ease'
+            _hover={href ? { borderColor: 'brand.200', boxShadow: '0 8px 24px -12px rgba(134, 37, 37, 0.3)' } : undefined}>
+            <Center w={12} h={12} rounded='xl' bg='brand.50' color='brand.500' flexShrink={0}>
+                <Icon as={icon} boxSize={5} />
+            </Center>
+            <Box minW={0}>
+                <Text fontSize='sm' color='gray.500' fontWeight={500}>
+                    {title}
+                </Text>
+                <Text fontWeight={600} color='gray.900' fontSize={{ base: 'md', md: 'lg' }} wordBreak='break-word'>
+                    {info}
+                </Text>
+            </Box>
+        </Flex>
     );
+
+    return href
+        ? <Link href={href} isExternal _hover={{ textDecoration: 'none' }}>{content}</Link>
+        : content;
 }
 
 export const ContactInformation: FC<ContactInformationProps> = ({ address, email, phone, fax }) => {
     return (
-        <Box maxW="7xl" mx={'auto'} pt={5} pb={10} px={{ base: 4, md: 8, lg: 12 }} >
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }} mb={10}>
-                <InformationCard
-                    title={'Adresse'}
-                    info={address}
-                    href={`https://www.google.com.au/maps/search/${encodeURI(
-                        address
-                    )}`}
-                    icon={<FaMapMarkerAlt size={32} />}
-                />
-                <InformationCard
-                    title={'Email'}
-                    info={email}
-                    href={`mailto:${email}`}
-                    icon={<EmailIcon w={10} h={10} color="var(--primary)" />}
-                />
-                <InformationCard
-                    title={'Telefon'}
-                    info={phone}
-                    href={`tel:${phone}`}
-                    icon={<PhoneIcon w={10} h={10} color="var(--primary)" />}
-                />
-                <InformationCard
-                    title={'Fax'}
-                    info={fax}
-                    icon={<InfoOutlineIcon w={10} h={10} color="var(--primary)" />}
-                />
+        <Container maxW='7xl' px={{ base: 4, md: 6 }} pt={{ base: 10, md: 16 }}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 6, lg: 10 }} alignItems='stretch'>
+                <Stack spacing={4}>
+                    <InformationCard
+                        title='Telefon'
+                        info={phone}
+                        href={`tel:${phone.replace(/\s/g, '')}`}
+                        icon={FiPhone}
+                    />
+                    <InformationCard
+                        title='E-Mail'
+                        info={email}
+                        href={`mailto:${email}`}
+                        icon={FiMail}
+                    />
+                    <InformationCard
+                        title='Adresse'
+                        info={address}
+                        href={`https://www.google.com/maps/search/${encodeURI(address)}`}
+                        icon={FiMapPin}
+                    />
+                    <InformationCard title='Fax' info={fax} icon={FiPrinter} />
+                </Stack>
+                <Box rounded='2xl' overflow='hidden' border='1px solid' borderColor='gray.100' minH='360px'>
+                    <GoogleMap />
+                </Box>
             </SimpleGrid>
-            <GoogleMap />
-        </Box>
+        </Container>
     );
 }
