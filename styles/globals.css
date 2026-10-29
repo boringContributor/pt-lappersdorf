@@ -2,6 +2,8 @@
   --primary: rgb(134, 37, 37);
   --primary-hover: rgb(116, 31, 31);
   --primary-light: rgba(134, 37, 37, 0.08);
+  --font-heading: 'Plus Jakarta Sans Variable';
+  --font-body: 'Inter Variable';
 }
 
 html {
