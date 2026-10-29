@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Center, Heading, Text } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import { FC } from 'react';
 
@@ -13,7 +13,7 @@ export interface TeamCardProps {
 const initials = (name: string) =>
     name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('');
 
-export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, description }) => {
+export const TeamCard: FC<TeamCardProps> = ({ name, picture, position }) => {
     return (
         <Box role='group'>
             <Box
@@ -45,17 +45,6 @@ export const TeamCard: FC<TeamCardProps> = ({ name, picture, position, descripti
                 <Text color='brand.500' fontSize='sm' fontWeight={600} mt={1}>
                     {position}
                 </Text>
-                {description && description.length > 0 && (
-                    <Wrap spacing={1.5} mt={3} display={{ base: 'none', sm: 'flex' }}>
-                        {description.map((item) => (
-                            <WrapItem key={item}>
-                                <Tag size='sm' rounded='full' bg='gray.100' color='gray.700' fontWeight={500} px={2.5} py={1}>
-                                    {item}
-                                </Tag>
-                            </WrapItem>
-                        ))}
-                    </Wrap>
-                )}
             </Box>
         </Box>
     );
